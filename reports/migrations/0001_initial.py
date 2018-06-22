@@ -9,7 +9,6 @@ import reports.models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -29,7 +28,8 @@ class Migration(migrations.Migration):
                 ('abstract_eng', models.TextField(blank=True, default='')),
                 ('created_date', models.DateTimeField(auto_now_add=True)),
                 ('updated_date', models.DateTimeField(auto_now=True)),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to=settings.AUTH_USER_MODEL)),
+                (
+                'user', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.CreateModel(
@@ -40,9 +40,12 @@ class Migration(migrations.Migration):
                 ('commit_message', models.CharField(blank=True, default='', max_length=1000)),
                 ('enabled', models.BooleanField(default=False)),
                 ('filename', models.CharField(default='file.pdf', max_length=200)),
-                ('file', models.FileField(upload_to=reports.models.report_file_path_generator, validators=[reports.models.ReportFileValidator()])),
-                ('report', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='reports.Report')),
-                ('user', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ('file', models.FileField(upload_to=reports.models.report_file_path_generator,
+                                          validators=[reports.models.ReportFileValidator()])),
+                ('report',
+                 models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='reports.Report')),
+                ('user', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE,
+                                           to=settings.AUTH_USER_MODEL)),
             ],
         ),
     ]

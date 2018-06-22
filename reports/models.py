@@ -12,23 +12,24 @@ import mimetypes
 
 import time
 
+
 class Report(models.Model):
-    user        = models.ForeignKey(User, on_delete=models.DO_NOTHING, null=False)
-    report_id   = models.AutoField(primary_key=True)
-    is_public   = models.BooleanField(default=False)
-    is_accessible= models.BooleanField(default=False)
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING, null=False)
+    report_id = models.AutoField(primary_key=True)
+    is_public = models.BooleanField(default=False)
+    is_accessible = models.BooleanField(default=False)
     # is_file     = models.BooleanField(default=False, null=False, blank=False)
     # file_url    = models.URLField
-    authors     = models.CharField(blank=True, null=False, max_length=100)
+    authors = models.CharField(blank=True, null=False, max_length=100)
 
-    title       = models.CharField(blank=False, null=False, max_length=100)
+    title = models.CharField(blank=False, null=False, max_length=100)
     # title_eng   = models.CharField(blank=False, null=False)
 
-    abstract    = models.TextField(blank=True, null=False, default='')
-    abstract_eng= models.TextField(blank=True, null=False, default='')
+    abstract = models.TextField(blank=True, null=False, default='')
+    abstract_eng = models.TextField(blank=True, null=False, default='')
 
-    created_date  = models.DateTimeField(auto_now_add=True)
-    updated_date  = models.DateTimeField(auto_now=True)
+    created_date = models.DateTimeField(auto_now_add=True)
+    updated_date = models.DateTimeField(auto_now=True)
 
     def set_public(self):
         self.is_public = True
@@ -60,14 +61,15 @@ def report_file_path_generator(instance, filename):
     splited[-1] = time.strftime("%Y%m%d%H%M%S") + '.PDF'
     new_name = '.'.join(splited)
     id = str(instance.report.report_id)
-    return 'reports/%s/%s/%s' %(instance.user.username, id,new_name)
+    return 'reports/%s/%s/%s' % (instance.user.username, id, new_name)
+
 
 @deconstructible
 class ReportFileValidator(object):
     allowed_extensions = ['pdf']
     allowed_mime_types = ['application/pdf']
-    minimum_file_size  = 10 # 10 Byte
-    maximum_file_size =  30 * 1024 * 1024 #30 MB
+    minimum_file_size = 10  # 10 Byte
+    maximum_file_size = 30 * 1024 * 1024  # 30 MB
 
     def __call__(self, file):
         if file.size < self.minimum_file_size:
@@ -83,14 +85,14 @@ class ReportFileValidator(object):
 
 
 class ReportFile(models.Model):
-    report_file_id  = models.AutoField(primary_key=True)
-    user            = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    report          = models.ForeignKey(Report, on_delete=models.CASCADE, null=True)
-    created_date    = models.DateTimeField(auto_now_add=True)
-    commit_message  = models.CharField(blank=True, null=False, default='', max_length=1000)
-    enabled         = models.BooleanField(default=False)
-    filename        = models.CharField(default='file.pdf', max_length=200)
-    file            = models.FileField(
+    report_file_id = models.AutoField(primary_key=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    report = models.ForeignKey(Report, on_delete=models.CASCADE, null=True)
+    created_date = models.DateTimeField(auto_now_add=True)
+    commit_message = models.CharField(blank=True, null=False, default='', max_length=1000)
+    enabled = models.BooleanField(default=False)
+    filename = models.CharField(default='file.pdf', max_length=200)
+    file = models.FileField(
         null=False,
         upload_to=report_file_path_generator,
         validators=[ReportFileValidator()]
@@ -98,11 +100,10 @@ class ReportFile(models.Model):
 
     def enable(self):
         ReportFile.objects.filter(report=self.report).update(enabled=False)
-        self.enabled=True
+        self.enabled = True
         self.save()
 
 #
 # class ReportContent(models.Model):
 #     report = models.ForeignKey(Report, on_delete=models.DO_NOTHING, unique=True, null=False, blank=False)
 #     content_id = models.AutoField(primary_key=True)
-

@@ -13,12 +13,10 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 import os
 import local_settings
 
-
 DEBUG = local_settings.IS_DEBUG_MODE
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
@@ -27,22 +25,20 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = local_settings.SECRET_KEY
 
 # if not DEBUG:
-    # SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 if not DEBUG:
     SECURE_SSL_REDIRECT = True
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
-    COMPRESS_ENABLED = True 
+    COMPRESS_ENABLED = True
     HTML_MINIFY = True
 
-
-ALLOWED_HOSTS   =  local_settings.ALLOWED_HOSTS
-BASE_HOST       =  local_settings.BASE_HOST
-BASE_PROTOCOL   =  local_settings.BASE_PROTOCOL
-BASE_URL        =  local_settings.BASE_URL
+ALLOWED_HOSTS = local_settings.ALLOWED_HOSTS
+BASE_HOST = local_settings.BASE_HOST
+BASE_PROTOCOL = local_settings.BASE_PROTOCOL
+BASE_URL = local_settings.BASE_URL
 
 AUTH_PROFILE_MODULE = 'accounts.Profile'
-
 
 # Application definition
 
@@ -63,7 +59,7 @@ INSTALLED_APPS = [
     'imagekit'
 ]
 
-#BLEACH CONFIG
+# BLEACH CONFIG
 BLEACH_VALID_TAGS = ['p', 'b', 'i', 'strike', 'ul', 'li', 'ol', 'br',
                      'span', 'blockquote', 'hr', 'a', 'img']
 BLEACH_VALID_ATTRS = {
@@ -74,8 +70,7 @@ BLEACH_VALID_ATTRS = {
 }
 BLEACH_VALID_STYLES = ['color', 'cursor', 'float', 'margin']
 
-
-#DISQUS CONFIG
+# DISQUS CONFIG
 SITE_ID = 1
 DISQUS_WEBSITE_SHORTNAME = local_settings.DISQUS_WEBSITE_SHORTNAME
 
@@ -90,7 +85,6 @@ MIDDLEWARE = [
     'htmlmin.middleware.HtmlMinifyMiddleware',
     'htmlmin.middleware.MarkRequestMiddleware',
 ]
-
 
 ROOT_URLCONF = 'ajouarxiv.urls'
 
@@ -113,7 +107,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ajouarxiv.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
@@ -123,7 +116,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
@@ -143,14 +135,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
 # LANGUAGE_CODE = 'en-us'
 LANGUAGE_CODE = 'ko-kr'
-
 
 # TIME_ZONE = 'UTC'
 TIME_ZONE = 'Asia/Seoul'
@@ -160,7 +149,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
@@ -176,26 +164,24 @@ STATICFILES_FINDERS = (
     'compressor.finders.CompressorFinder'
 )
 
-
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-
-#URLS for accounts
+# URLS for accounts
 LOGIN_URL = '/accounts/login/'
 LOGOUT_URL = '/accounts/logout/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = 'index'
 
-#for email
-EMAIL_USE_TLS       = local_settings.EMAIL_USE_TLS
-EMAIL_BACKEND       = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST          = local_settings.EMAIL_HOST
-EMAIL_HOST_USER     = local_settings.EMAIL_HOST_USER
+# for email
+EMAIL_USE_TLS = local_settings.EMAIL_USE_TLS
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = local_settings.EMAIL_HOST
+EMAIL_HOST_USER = local_settings.EMAIL_HOST_USER
 EMAIL_HOST_PASSWORD = local_settings.EMAIL_HOST_PASSWORD
-EMAIL_PORT          = local_settings.EMAIL_PORT
-EMAIL_DISPLAYED_NAME= local_settings.EMAIL_DISPLAYED_NAME
-DEFAULT_FROM_EMAIL  = EMAIL_HOST_USER
+EMAIL_PORT = local_settings.EMAIL_PORT
+EMAIL_DISPLAYED_NAME = local_settings.EMAIL_DISPLAYED_NAME
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
-#for user
+# for user
 ALLOWED_EMAIL_DOMAIN = local_settings.ALLOWED_EMAIL_DOMAIN

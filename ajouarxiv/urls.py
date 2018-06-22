@@ -22,15 +22,15 @@ from django.conf.urls.static import static
 from django.conf.urls import (
     handler404
 )
+
 handler404 = 'webserver.views.handler404'
 
-
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    # for auth
-    url(r'^accounts/', include('accounts.urls')),
-    # url(r'^accounts/', include('django.contrib.auth.urls')),
-    url(r'^reports/', include('reports.urls')),
-    url(r'^community/', include('community.urls')),
-    url(r'', include('webserver.urls')),
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+                  url(r'^admin/', admin.site.urls),
+                  # for auth
+                  url(r'^accounts/', include('accounts.urls')),
+                  # url(r'^accounts/', include('django.contrib.auth.urls')),
+                  url(r'^reports/', include('reports.urls')),
+                  url(r'^community/', include('community.urls')),
+                  url(r'', include('webserver.urls')),
+              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

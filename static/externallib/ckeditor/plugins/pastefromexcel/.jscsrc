@@ -1,11 +1,25 @@
 {
 	"es3": true,
 	"requireCurlyBraces": [
-		"switch", "try", "catch"
+		"switch",
+		"try",
+		"catch"
 	],
 	"requireSpaceBeforeKeywords": true,
 	"requireSpaceAfterKeywords": [
-		"do", "for", "if", "else", "switch", "case", "try", "catch", "void", "while", "with", "return", "typeof"
+		"do",
+		"for",
+		"if",
+		"else",
+		"switch",
+		"case",
+		"try",
+		"catch",
+		"void",
+		"while",
+		"with",
+		"return",
+		"typeof"
 	],
 	"requireSpaceBeforeBlockStatements": true,
 	"requireParenthesesAroundIIFE": true,
@@ -42,7 +56,9 @@
 	"disallowTrailingWhitespace": true,
 	"maximumLineLength": 200,
 	"requireDotNotation": {
-		"allExcept": [ "keywords" ]
+		"allExcept": [
+			"keywords"
+		]
 	},
 	"disallowYodaConditions": true,
 	"disallowNewlineBeforeBlockStatements": true,
@@ -53,6 +69,9 @@
 	},
 	"validateIndentation": {
 		"value": "\t",
-		"allExcept": [ "comments", "emptyLines" ]
+		"allExcept": [
+			"comments",
+			"emptyLines"
+		]
 	}
 }

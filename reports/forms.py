@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from reports.models import Report, ReportFile
 from django import forms
 
+
 #
 #
 # class EmailVerificationCreationForm(forms.ModelForm):
@@ -37,4 +38,3 @@ class ReportFileUploadForm(forms.ModelForm):
     class Meta:
         model = ReportFile
         fields = ['file', 'commit_message']
-

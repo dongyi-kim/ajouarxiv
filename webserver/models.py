@@ -18,20 +18,17 @@ from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFit
 
 
-
 def report_file_path_generator(instance, filename):
-    return 'files/%s/%s' %(instance.user.username, filename)
-
-
-
+    return 'files/%s/%s' % (instance.user.username, filename)
 
 
 @deconstructible
 class FileResourceValidator(object):
-    allowed_extensions = ['pdf', 'png', 'jpg','jpeg', 'gif', 'bmp',  'zip', 'gz', 'txt','hwp','doc', 'docx', 'xls', 'xlsx', 'xml', 'json', 'ppt', 'pptx', 'ai']
+    allowed_extensions = ['pdf', 'png', 'jpg', 'jpeg', 'gif', 'bmp', 'zip', 'gz', 'txt', 'hwp', 'doc', 'docx', 'xls',
+                          'xlsx', 'xml', 'json', 'ppt', 'pptx', 'ai']
     allowed_mime_types = ['application/pdf']
-    minimum_file_size  = 10 # 10 Byte
-    maximum_file_size =  30 * 1024 * 1024 #30 MB
+    minimum_file_size = 10  # 10 Byte
+    maximum_file_size = 30 * 1024 * 1024  # 30 MB
 
     def __call__(self, file):
         if file.size < self.minimum_file_size:
@@ -43,13 +40,13 @@ class FileResourceValidator(object):
         ext = os.path.splitext(file.name)[1][1:].lower()
         mimetype = mimetypes.guess_type(file.name)[0]
         if ext not in self.allowed_extensions or mimetype not in self.allowed_mime_types:
-            raise ValidationError("업로드할 수 없는 파일입니다.\n 가능한 파일 : "  + str(self.allowed_extensions) )
+            raise ValidationError("업로드할 수 없는 파일입니다.\n 가능한 파일 : " + str(self.allowed_extensions))
 
 
 class FileResourceModel(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
     file_id = models.AutoField(primary_key=True)
-    file   = models.FileField(
+    file = models.FileField(
         null=False,
         upload_to=report_file_path_generator,
         validators=[FileResourceValidator()]

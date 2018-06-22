@@ -1,6 +1,7 @@
 from django.contrib import admin
 from community.models import *
 
+
 # Register your models here.
 
 
@@ -24,11 +25,13 @@ class StudyClubModelAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'main_contact', 'sub_contact', 'url')
     search_fields = ('name', 'description', 'main_contact', 'sub_contact')
 
+
 admin.site.register(StudyClubModel, StudyClubModelAdmin)
 
 
 class StudentCouncilModelAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'main_contact', 'sub_contact', 'url')
     search_fields = ('name', 'description', 'main_contact', 'sub_contact')
+
 
 admin.site.register(StudentCouncilModel, StudentCouncilModelAdmin)

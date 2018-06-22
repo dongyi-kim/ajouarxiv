@@ -1,12 +1,14 @@
 
-html,body{
+html, body {
     height: 100%;
-    font-family: 'Spoqa Han Sans','nanumgothic', sans-serif;
+    font-family: 'Spoqa Han Sans', 'nanumgothic', sans-serif;
 }
 
 /**** Common ****/
-p.noticeRed{
-    height: 22px; color: #ff0000; font-size: 14px;
+p.noticeRed {
+    height: 22px;
+    color: #ff0000;
+    font-size: 14px;
     text-align: left;
     background-image: url(../images/icon_notice.gif);
     background-repeat: no-repeat;
@@ -16,8 +18,9 @@ p.noticeRed{
     display: none;
 }
 
-.boxtable input:not([type=checkbox]){
-    width: 390px; height: 56px;
+.boxtable input:not([type=checkbox]) {
+    width: 390px;
+    height: 56px;
     border: 1px solid #ccc;
     padding-left: 70px;
     box-sizing: border-box;
@@ -26,86 +29,96 @@ p.noticeRed{
     margin-bottom: 10px;
 }
 
-.boxtable input.username{
-    background:url(../images/icon_id.gif) 24px center no-repeat;
+.boxtable input.username {
+    background: url(../images/icon_id.gif) 24px center no-repeat;
     text-transform: lowercase;
     ime-mode: disabled;
 }
 
-.boxtable input.email{
-    background:url(../images/icon_em.gif) 24px center no-repeat;
+.boxtable input.email {
+    background: url(../images/icon_em.gif) 24px center no-repeat;
 }
 
-.boxtable input.password{
-    background:url(../images/icon_pw.gif) 24px center no-repeat;
+.boxtable input.password {
+    background: url(../images/icon_pw.gif) 24px center no-repeat;
 }
 
-.boxtable input.student-id{
-    background:url(../images/icon_num.gif) 24px center no-repeat;
-
-}
-
-.boxtable input.name-kor{
-    background:url(../images/icon_ko.gif) 24px center no-repeat;
+.boxtable input.student-id {
+    background: url(../images/icon_num.gif) 24px center no-repeat;
 
 }
 
-.boxtable input.name-eng{
-    background:url(../images/icon_en.gif) 24px center no-repeat;
+.boxtable input.name-kor {
+    background: url(../images/icon_ko.gif) 24px center no-repeat;
+
 }
 
+.boxtable input.name-eng {
+    background: url(../images/icon_en.gif) 24px center no-repeat;
+}
 
-
-#login,#join{
+#login, #join {
     background-color: #eeeeee;
-    width: 100%; height: 100%;
+    width: 100%;
+    height: 100%;
 }
+
 /**** login ****/
-#login .boxtable{
+#login .boxtable {
     width: 528px;
     margin: 0 auto;
     text-align: center;
     position: relative;
     top: 16%;
 }
-#login .boxtable .biglogo{
+
+#login .boxtable .biglogo {
     margin-bottom: 24px;
 }
-#login .boxtable .whiteBg{
+
+#login .boxtable .whiteBg {
     background-color: #fff;
     border: 1px solid #ccc;
     padding-top: 53px;
 }
-#login .boxtable .loginText{
+
+#login .boxtable .loginText {
     font-size: 26px;
     color: #555;
     margin-bottom: 19px;
 }
 
-#login .boxtable .loginBtn a{
+#login .boxtable .loginBtn a {
     display: inline-block;
-    width: 390px; height: 56px;
+    width: 390px;
+    height: 56px;
     background-color: #33599a;
     color: #fff;
     font-size: 18px;
     line-height: 56px;
     font-weight: normal;
 }
-#login .boxtable .subBtn_group{
-    width: 390px; margin: 0 auto 48px;
+
+#login .boxtable .subBtn_group {
+    width: 390px;
+    margin: 0 auto 48px;
 }
-#login .boxtable .subBtn_group .remember{
+
+#login .boxtable .subBtn_group .remember {
     float: left;
 }
-#login .boxtable .subBtn_group input{
+
+#login .boxtable .subBtn_group input {
     position: relative;
     top: -3px;
     margin-right: 5px;
 }
-#login .boxtable .subBtn_group .forgotPw{
+
+#login .boxtable .subBtn_group .forgotPw {
     float: right;
 }
-#login .boxtable .grayBg{
+
+#login .boxtable .grayBg {
     height: 78px;
     background-color: #dbdbdb;
     border: 1px solid #ccc;
@@ -113,28 +126,31 @@ p.noticeRed{
     line-height: 76px;
 }
 
-
 /**** join ****/
-#join .boxtable{
+#join .boxtable {
     width: 528px;
     margin: 0 auto;
     text-align: center;
     position: relative;
     top: 12%;
 }
-#join .boxtable .biglogo{
+
+#join .boxtable .biglogo {
     margin-bottom: 24px;
 }
-#join .boxtable .whiteBg{
+
+#join .boxtable .whiteBg {
     background-color: #fff;
     border: 1px solid #ccc;
     padding-top: 53px;
 }
-#join .boxtable .loginText{
+
+#join .boxtable .loginText {
     font-size: 26px;
     color: #555;
     margin-bottom: 19px;
 }
+
 /*
 #join .boxtable input.joining{
     width: 390px; height: 56px;
@@ -149,9 +165,10 @@ p.noticeRed{
 
 /**** 180312 형식수정문구 추가&변경 ****/
 
-#join .boxtable .joinBtn a{
+#join .boxtable .joinBtn a {
     display: inline-block;
-    width: 390px; height: 56px;
+    width: 390px;
+    height: 56px;
     background-color: #33599a;
     color: #fff;
     font-size: 18px;
@@ -160,4 +177,5 @@ p.noticeRed{
     margin-bottom: 60px;
     margin-top: 30px;
 }
+
 /**** //180312 형식수정문구 추가&변경 ****/

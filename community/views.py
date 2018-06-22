@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 
-from django.views import  View
+from django.views import View
 from django.views.generic import DetailView, ListView, UpdateView, CreateView
 
 from django.http import HttpResponseNotFound, Http404, HttpResponseRedirect
@@ -19,12 +19,14 @@ from urllib.parse import urlencode
 
 from ajouarxiv import settings
 
+
 class StudentCouncilListView(ListView):
     model = StudentCouncilModel
     template_name = 'community/council.html'
     paginate_by = 200
     ordering = ['-id']
     context_object_name = 'card_list'
+
 
 class StudyClubListView(ListView):
     model = StudyClubModel
@@ -47,9 +49,10 @@ class PostView(DetailView):
     template_name = 'community/post_view.html'
     context_object_name = 'post'
 
+
 @method_decorator(login_required, name='dispatch')
 class PostCreateView(CreateView):
-    model =  CommunityPostModel
+    model = CommunityPostModel
     form_class = CommunityPostForm
     template_name = 'community/post_write.html'
     success_url = 'community_post_view'
@@ -59,7 +62,7 @@ class PostCreateView(CreateView):
         return super(PostCreateView, self).form_valid(form)
 
     def get_success_url(self):
-        return reverse(viewname=self.success_url, kwargs={'pk':self.object.post_id})
+        return reverse(viewname=self.success_url, kwargs={'pk': self.object.post_id})
 
 
 @method_decorator(login_required, name='dispatch')
@@ -75,14 +78,13 @@ class PostUpdateView(UpdateView):
 
         obj = super(PostUpdateView, self).get_object(queryset)
 
-        if obj and (obj.user == self.request.user or self.request.user.is_superuser) :
+        if obj and (obj.user == self.request.user or self.request.user.is_superuser):
             return obj
 
         raise HttpResponseNotFound
 
     def get_success_url(self):
-        return reverse(viewname=self.success_url, kwargs={'pk':self.object.post_id})
-
+        return reverse(viewname=self.success_url, kwargs={'pk': self.object.post_id})
 
 
 class PostListView(ListView):
@@ -97,7 +99,7 @@ class PostListView(ListView):
         query_params.pop('page', None)
         context['query_params'] = urlencode(query_params)
 
-        filter = {   }
+        filter = {}
         if self.request.GET.get('user'):
             filter['user'] = self.request.GET.get('user')
 
@@ -112,7 +114,7 @@ class PostListView(ListView):
 
     def get_queryset(self):
         queryset = self.model.objects
-        if self.request.user.is_authenticated :
+        if self.request.user.is_authenticated:
             if self.request.user.is_superuser or self.request.user.is_staff:
                 queryset = queryset.all()
             if not self.request.user.is_staff and not self.request.user.is_superuser:
@@ -125,18 +127,17 @@ class PostListView(ListView):
             users = User.objects.filter(username__contains=pattern)
             profiels = Profile.objects.filter(name_kor__contains=pattern).values_list('user', flat=True)
 
-            queryset=queryset.filter(Q(user__in=users) | Q(user__in=set(profiels)))
+            queryset = queryset.filter(Q(user__in=users) | Q(user__in=set(profiels)))
 
         if self.request.GET.get('post_title'):
             pattern = self.request.GET.get('post_title')
-            queryset=queryset.filter(post_title__contains=pattern)
+            queryset = queryset.filter(post_title__contains=pattern)
 
         if self.request.GET.get('post_content'):
             pattern = self.request.GET.get('post_content')
-            queryset=queryset.filter(post_content__contains=pattern)
+            queryset = queryset.filter(post_content__contains=pattern)
 
         return queryset.order_by('-post_id')
-
 
 
 class NoticeView(DetailView):
@@ -155,7 +156,7 @@ class NoticeListView(PostListView):
 @method_decorator(login_required, name='dispatch')
 @method_decorator(user_passes_test(lambda user: user.is_staff or user.is_superuser), name='dispatch')
 class NoticeCreateView(PostCreateView):
-    model =  NoticePostModel
+    model = NoticePostModel
     form_class = NoticePostForm
     template_name = 'community/notice_write.html'
     success_url = 'community_notice_view'
@@ -168,6 +169,3 @@ class NoticeUpdateView(PostUpdateView):
     template_name = 'community/notice_write.html'
     success_url = 'community_notice_view'
     form_class = NoticePostForm
-
-
-
