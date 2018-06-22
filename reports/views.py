@@ -19,6 +19,8 @@ import time
 
 from reports.forms import ReportModifyForm, ReportFileUploadForm
 import os
+
+
 # Create your views here.
 
 
@@ -41,7 +43,7 @@ class ReportListView(ListView):
         query_params.pop('page', None)
         context['query_params'] = urlencode(query_params)
 
-        filter = {   }
+        filter = {}
         if self.request.GET.get('author'):
             filter['user'] = self.request.GET.get('author')
 
@@ -61,15 +63,15 @@ class ReportListView(ListView):
             pattern = self.request.GET.get('author')
             users = User.objects.filter(username__contains=pattern)
             profiels = Profile.objects.filter(name_kor__contains=pattern).values_list('user', flat=True)
-            queryset=queryset.filter(Q(user__in=users) | Q(user__in=set(profiels)) | Q(authors__contains=pattern))
+            queryset = queryset.filter(Q(user__in=users) | Q(user__in=set(profiels)) | Q(authors__contains=pattern))
 
         if self.request.GET.get('title'):
             pattern = self.request.GET.get('title')
-            queryset=queryset.filter(title__contains=pattern)
+            queryset = queryset.filter(title__contains=pattern)
 
         if self.request.GET.get('abstract'):
             pattern = self.request.GET.get('abstract')
-            queryset=queryset.filter(abstract__contains=pattern)
+            queryset = queryset.filter(abstract__contains=pattern)
 
         return queryset.order_by('-created_date')
 
@@ -91,7 +93,7 @@ class ReportDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(ReportDetailView, self).get_context_data(**kwargs)
         context['profile'] = Profile.objects.get(user=self.object.user)
-        context['report_url'] =   urllib.parse.urljoin(settings.BASE_URL, 'p/%d/' % self.object.report_id)
+        context['report_url'] = urllib.parse.urljoin(settings.BASE_URL, 'p/%d/' % self.object.report_id)
         if ReportFile.objects.filter(report=self.object, enabled=True).exists():
             context['report_file'] = ReportFile.objects.get(report=self.object, enabled=True)
         return context
@@ -111,17 +113,17 @@ class ReportMyWritingsView(View):
         queryset = Report.objects.filter(user=request.user)
         if self.request.GET.get('author'):
             pattern = self.request.GET.get('author')
-            queryset=queryset.filter(authors__contains=pattern)
+            queryset = queryset.filter(authors__contains=pattern)
 
         if self.request.GET.get('title'):
             pattern = self.request.GET.get('title')
-            queryset=queryset.filter(title__contains=pattern)
+            queryset = queryset.filter(title__contains=pattern)
 
         if self.request.GET.get('abstract'):
             pattern = self.request.GET.get('abstract')
-            queryset=queryset.filter(abstract__contains=pattern)
+            queryset = queryset.filter(abstract__contains=pattern)
         queryset = queryset.order_by('-created_date')
-        return render(request, 'reports/writings.html', { 'object_list' : queryset })
+        return render(request, 'reports/writings.html', {'object_list': queryset})
 
     def post(self, request):
         raise Http404
@@ -133,10 +135,10 @@ class ReportInfoModifyView(View):
     def get(self, request, report_id):
         report = get_object_or_404(Report, user=request.user, report_id=report_id)
         context = {
-            'report' : report,
-            'user' : request.user,
-            'profile' : get_object_or_404(Profile, user=request.user),
-            'report_file_exists' : ReportFile.objects.filter(report=report, enabled=True).exists()
+            'report': report,
+            'user': request.user,
+            'profile': get_object_or_404(Profile, user=request.user),
+            'report_file_exists': ReportFile.objects.filter(report=report, enabled=True).exists()
         }
 
         return render(request, 'reports/modify_info.html', context)
@@ -154,8 +156,6 @@ class ReportInfoModifyView(View):
         return HttpResponse(status=200)
 
 
-
-
 @method_decorator(login_required, name='dispatch')
 class ReportFileModifyView(View):
 
@@ -163,10 +163,10 @@ class ReportFileModifyView(View):
         report = get_object_or_404(Report, user=request.user, report_id=report_id)
         file_list = ReportFile.objects.filter(report=report).order_by('-report_file_id')
         context = {
-            'file_list' : file_list,
-            'user' : request.user,
-            'profile' : get_object_or_404(Profile, user=request.user),
-            'report' : report
+            'file_list': file_list,
+            'user': request.user,
+            'profile': get_object_or_404(Profile, user=request.user),
+            'report': report
         }
 
         return render(request, 'reports/modify_files.html', context)
@@ -179,17 +179,15 @@ class ReportFileModifyView(View):
         return redirect(request.path)
 
 
-
-
 @method_decorator(login_required, name='dispatch')
 class ReportFileUploadView(View):
 
     def get(self, request, report_id):
         report = get_object_or_404(Report, user=request.user, report_id=report_id)
         context = {
-            'user' : request.user,
-            'profile' : get_object_or_404(Profile, user=request.user),
-            'report' : report
+            'user': request.user,
+            'profile': get_object_or_404(Profile, user=request.user),
+            'report': report
         }
 
         return render(request, 'reports/modify_upload.html', context)
@@ -203,13 +201,18 @@ class ReportFileUploadView(View):
                 name = request.FILES[filename].name
                 break
 
-            ReportFile.objects.create(
+            uploaded_file = ReportFile.objects.create(
                 user=request.user,
                 report=report,
-                file = form.cleaned_data.get('file'),
-                commit_message= form.cleaned_data.get('commit_message'),
+                file=form.cleaned_data.get('file'),
+                commit_message=form.cleaned_data.get('commit_message'),
                 filename=name
-            ).save()
+            )
+            uploaded_file.save()
+
+            if ReportFile.objects.filter(report=report).count() == 1:
+                uploaded_file.enable()
+
         else:
             print(form.errors)
             return HttpResponse(status=400)
@@ -217,22 +220,20 @@ class ReportFileUploadView(View):
         return redirect(request.POST['next'])
 
 
-
 @method_decorator(login_required, name='dispatch')
 class ReportCreateView(View):
     def get(self, request):
         profile = get_object_or_404(Profile, user=request.user)
         report = Report.objects.create(
-            user= request.user,
+            user=request.user,
             authors=profile.name_kor,
-            title= 'New Report ' + time.strftime("%Y.%m.%d %H.%M.%S"),
+            title='New Report ' + time.strftime("%Y.%m.%d %H.%M.%S"),
         )
 
         return redirect('reports_writings')
 
     def post(self, request):
         raise Http404
-
 
 
 class DownloadView(View):
@@ -255,8 +256,3 @@ class DownloadView(View):
 
     def post(self, request):
         raise Http404
-
-
-
-
-
