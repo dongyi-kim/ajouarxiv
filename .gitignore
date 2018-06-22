@@ -10,6 +10,10 @@
 pid.txt
 *.pid
 
+ajouarxiv_nginx.conf
+ajouarxiv_uwsgi.ini
+uwsgi_params
+
 .idea/
 __pycache__/
 __security/
