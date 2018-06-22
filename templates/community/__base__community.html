@@ -1,0 +1,65 @@
+{% extends '__base__client.html' %}
+{% load staticfiles %}
+{% load compress %}
+
+{% block css %}
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'css/common.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'css/sub1.css' %}" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+<!----- content ----->
+{% block content %}
+    <!----- Visual ----->
+    <section id="visual">
+        <div class="subReport"></div>
+        <div class="subnavi">
+            <div class="wrapper">
+                <ul class="clearfix">
+                    <li><a href="{% url 'index' %}">홈</a></li>
+                    <li>></li>
+                    <li><a href="{% url 'community_post' %}">학생활동</a></li>
+                    <li>></li>
+                    <li><a href="{{ request.path }}">{% block tab_name %}현재 페이지{% endblock %}</a></li>
+                </ul>
+            </div>
+            <div class="line"></div>
+        </div>
+    </section>
+    <!----- //Visual ----->
+
+    <!----- conatainer ----->
+    <section id="container">
+        <div class="wrapper clearfix">
+            <div class="subMenu">
+                <p class="subTit">학생활동</p>
+                <ul class="subMenu_list">
+                    <li {% if request.resolver_match.url_name == "community_post" or request.resolver_match.url_name == "community_post_view"  or  request.resolver_match.url_name == "community_post_write" or  request.resolver_match.url_name == "community_post_modify" %}class="active"{% endif %}>
+                        <a href="{% url 'community_post' %}">학과 게시판</a></li>
+                    <li {% if request.resolver_match.url_name == "community_council" %}class="active"{% endif %}><a
+                            href="{% url 'community_council' %}">학생회</a></li>
+                    <li {% if request.resolver_match.url_name == "community_club" %}class="active"{% endif %}><a
+                            href="{% url 'community_club' %}">소학회</a></li>
+                    <li {% if request.resolver_match.url_name == "community_gallery" %}class="active"{% endif %}><a
+                            href="{% url 'community_gallery' %}">갤러리</a></li>
+                </ul>
+            </div>
+            <div class="rightcol">
+                {% block tab_content %}
+                    <div>
+                        <p class="introImg"><img src="{% static 'images/introImg.jpg' %}" alt="1인1작소개"></p>
+                        <p class="introDesc">
+                            텍스트 입력란입니다. 텍스트 입력란입니다.텍스트 입력란입니다.텍스트 입력란입니다.텍스트 입력란입니다.텍스트 입력란입니다.텍스트 입력란 입니다. 텍스트 입력란입니다.
+                            텍스트 입력란입니다.텍스트 입력란입니다.텍스트 입력란입니다.텍스트 입력란입니다.텍스트 입력란입니다.텍스트 입력란 입니다. 텍스트 입력란입니다. 텍스트
+                            입력란입니다.텍스트 입력란입니다.텍스트 입력란입니다.텍스트 입력란입니다.텍스트 입력란 입니다. 텍스트 입력란 입니다. 텍스트 입력란입니다. 텍스트 입력란입니다.텍스트
+                            입력란입니다.텍스트 입력란입니다.텍스트 입력란입니다.텍스트 입력란 입니다.텍스트 입력란 입니다. 텍스트 입력란입니다. 텍스트 입력란입니다.텍스트 입력란입니다.텍스트
+                            입력란입니다.텍스트 입력란입니다.텍스트 입력란입니다.텍스트 입력란 입니다. 텍스트 입력란입니다. 텍스트 입력란입니다.텍스트 입력란입니다.텍스트 입력란입니다.텍스트
+                            입력란 입니다.텍스트 입력란입니다.텍스트 입력란 입니다.
+                        </p>
+                    </div>
+                {% endblock %}
+            </div>
+        </div>
+    </section>
+    <!----- //conatainer ----->
+{% endblock %}

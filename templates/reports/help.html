@@ -1,0 +1,18 @@
+{% extends 'reports/__base_reports.html' %}
+{% load staticfiles %}
+
+{% block title %}1인1기1작 투고하기{% endblock %}
+{% block tab_name %}투고하기{% endblock %}
+
+{% block tab_content %}
+    <div>
+        <p class="subTit_right">1인1기1작 보고서 투고하기</p>
+        <p class="introImg"><img src="{% static 'images/introImg.jpg' %}" alt="1인1작소개"></p>
+        <p class="introDesc">
+            <strong>1인 1기 1작</strong> 은 현재 준비중입니다.
+            <br/><br/>
+            <strong>경제 현안 세미나</strong>는 일방적인 강의 형태에서 벗어나 기초적인 경제이론을 바탕으로 현실의 경제통계를 수집하고 실증 분석을 통해 경제 현안을 이해하도록 경제학 실습을
+            수행하는 교과목입니다.
+        </p>
+    </div>
+{% endblock %}

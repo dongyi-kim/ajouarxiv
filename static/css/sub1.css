@@ -1,0 +1,601 @@
+/**** Visual ****/
+#visual {
+    margin-bottom: 40px;
+}
+
+#visual .subReport {
+    width: 100%;
+    height: 160px;
+    background-image: url(../images/subReport.jpg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+#visual .subnavi ul {
+    float: right;
+    height: 30px;
+}
+
+#visual .subnavi ul li {
+    float: left;
+    line-height: 36px;
+    color: #888;
+    font-weight: 300;
+    font-size: 14px;
+    margin-left: 10px;
+}
+
+#visual .subnavi ul li a {
+    color: #888;
+}
+
+#visual .subnavi .line {
+    display: block;
+    clear: both;
+    border-bottom: 1px solid #eee;
+}
+
+/**** container ****/
+#container .subMenu {
+    float: left;
+    width: 240px;
+    height: 600px;
+    text-align: center;
+    margin-right: 65px;
+}
+
+#container .subMenu .subTit {
+    font-size: 34px;
+    color: #33599a;
+    margin-bottom: 46px;
+    font-weight: bold;
+}
+
+#container .subMenu .subMenu_list {
+    border-top: 2px solid #33599a;
+}
+
+#container .subMenu .subMenu_list li {
+    height: 56px;
+    border-bottom: 1px solid #ddd;
+}
+
+#container .subMenu .subMenu_list li a {
+    display: block;
+    width: 240px;
+    height: 56px;
+    font-size: 20px;
+    line-height: 56px;
+    color: #666;
+}
+
+#container .subMenu .subMenu_list li:hover {
+    background-color: #f1f1f1;
+}
+
+#container .subMenu .subMenu_list li.active {
+    font-weight: 600;
+    background-color: #f1f1f1;
+}
+
+#container .rightcol {
+    float: right;
+    width: 895px;
+    min-height: 700px;
+    margin-bottom: 100px;
+}
+
+#container .rightcol .subTit_right {
+    text-align: right;
+    font-size: 28px;
+    color: #555;
+    letter-spacing: -1px;
+    margin-bottom: 50px;
+}
+
+/**** Sub1_1인1작소개 ****/
+#container .rightcol .introImg {
+    width: inherit;
+    height: 172px;
+    margin-bottom: 26px;
+}
+
+#container .rightcol .introDesc {
+    font-size: 19px;
+    font-weight: 400;
+    line-height: 28px;
+    text-align: justify;
+}
+
+#container .rightcol .post-content {
+    font-family: 'AritaBuri', 'Times New Roman', 'NanumGothic', sans-serif !important;
+    font-size: 18px !important;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+#container .rightcol .post-content a {
+    background: url(../images/icon_link.png) left no-repeat;
+    height: fit-content;
+    width: fit-content;
+    padding-left: 26px;
+    color: #33599a;
+
+    text-align: center;
+    transition: 0.2s;
+    -webkit-transition: 0.2s;
+    text-decoration: underline;
+    cursor: pointer;
+    font-style: italic;
+    font-weight: bold;
+}
+
+/**** Sub1_1인1작목록 ****/
+/* 180329_새글쓰기 버튼 추가 (공지사항, 학과정보, 갤러리)*/
+#container .rightcol ul.post-manage > li {
+    float: left;
+    clear: left;
+}
+
+#container .rightcol .post {
+    float: left;
+}
+
+#container .rightcol .post.gallery {
+    float: none;
+    margin-bottom: 25px;
+}
+
+#container .rightcol .post a,
+#container .rightcol .post button {
+    display: block;
+    width: 105px;
+    height: 35px;
+    border: 1px solid #33599a;
+    background: white;
+    color: #33599a;
+    text-align: center;
+    line-height: 34px;
+    transition: 0.2s;
+    -webkit-transition: 0.2s;
+}
+
+#container .rightcol .admin a:hover {
+    background-color: #33599a;
+    color: #fff;
+}
+
+/* // 180329_새글쓰기 버튼 추가 */
+#container .rightcol .searchBox {
+    float: right;
+    margin-bottom: 20px;
+    font-weight: 300;
+}
+
+#container .rightcol .searchBox > li {
+    float: left;
+    margin-left: 7px;
+}
+
+#container .rightcol .searchBox .box {
+    width: 105px;
+    height: 35px;
+    padding-left: 10px;;
+    box-sizing: border-box;
+}
+
+#container .rightcol .searchBox .text {
+    width: 260px;
+    height: 35px;
+    padding-left: 10px;
+    box-sizing: border-box;
+}
+
+#container .rightcol .searchBox .search a {
+    display: block;
+    width: 90px;
+    height: 35px;
+    background-color: #33599a;
+    color: #fff;
+    text-align: center;
+    line-height: 34px;
+}
+
+#container .rightcol .reportList {
+    text-align: center;
+    border-top: 2px solid #33599a;
+}
+
+#container .rightcol .reportList caption {
+    display: none;
+}
+
+#container .rightcol .reportList .Listset {
+    border-bottom: 1px solid #ddd;
+}
+
+#container .rightcol .reportList .re_tit {
+    font-size: 15px;
+    height: 45px;
+    background-color: #f8f8f8;
+}
+
+/* 180325_수정 */
+#container .rightcol .reportList .re_tit .textStyle {
+    text-align: left;
+    font-size: 18px;
+    line-height: 22px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+#container .rightcol .reportList .re_content {
+    text-align: left;
+    width: 690px;
+    height: 67px;
+    color: #888;
+    font-weight: 300;
+    box-sizing: border-box;
+}
+
+#container .rightcol .reportList .re_content > td {
+    padding-top: 8px;
+}
+
+#container .rightcol .reportList .re_content .abstract {
+    width: 690px;
+    height: 16px;
+    overflow: hidden;
+}
+
+#container .rightcol .reportList .re_content .edit,
+#container .rightcol .reportList .re_content .private,
+#container .rightcol .reportList .re_content .public {
+    padding-top: 0;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#container .rightcol .reportList .re_content .public {
+    color: #006600;
+}
+
+#container .rightcol .reportList .re_content .private {
+    color: #902b2b;
+}
+
+#container .rightcol .reportList .re_content .accessible {
+    color: #5bc0de;
+}
+
+/* // 180325_수정 */
+/* 180318_가운데정렬 수정 */
+#container .rightcol .marginAuto {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+}
+
+/* 180318_수정 */
+#container .rightcol .reportList .re_tit .textStyle > a {
+    color: #666;
+}
+
+#container .rightcol .reportList .re_content .abstract > a,
+#container .rightcol .reportList .re_content .writer > a {
+    color: #888;
+}
+
+/**** Sub1_1인1작목록_상세보기 ****/
+#container .rightcol .paper {
+    padding-top: 78px;
+}
+
+#container .rightcol .paper .paperTit {
+    text-align: center;
+    font-size: 28px;
+    color: #444;
+    font-weight: bold;
+    margin-bottom: 60px;
+}
+
+#container .rightcol .paper .paperCont {
+    margin-bottom: 38px;
+}
+
+#container .rightcol .paper .oriView {
+    float: left;
+    margin-right: 10px;
+}
+
+#container .rightcol .paper .oriView a {
+    display: block;
+    width: 152px;
+    height: 65px;
+    box-sizing: border-box;
+    border: 1px solid #33599a;
+    text-align: center;
+    line-height: 63px;
+    font-size: 18px;
+    color: #33599a;
+}
+
+#container .rightcol .paper .paperInfo {
+    float: right;
+    width: 280px;
+}
+
+#container .rightcol .paper .paperInfo .pleft {
+    display: inline-block;
+}
+
+#container .rightcol .paper .paperInfo .pright {
+    display: inline-block;
+    float: right;
+}
+
+#container .rightcol .paper .summary .wide {
+    width: 100%;
+    height: 39px;
+}
+
+#container .rightcol .paper .summary .wide .sumtap {
+    float: right;
+}
+
+#container .rightcol .paper .summary .wide .sumtap li {
+    float: left;
+    width: 111px;
+    height: 39px;
+    text-align: center;
+    line-height: 38px;
+    border: 1px solid #ccc;
+    border-bottom: 0 none;
+    color: #888;
+    cursor: pointer;
+}
+
+#container .rightcol .paper .summary .wide .sumtap li.active {
+    background-color: #ccc;
+    color: #fff;
+}
+
+/* 180318_수정 */
+#container .rightcol .paper .summary .koen {
+    position: relative;
+    top: -10px;
+}
+
+/* 180326_수정(margin-bottom 삭제) */
+#container .rightcol .paper .summary .sumList {
+    width: 100%;
+    height: 160px;
+    padding: 24px;
+    border: 1px solid #ccc;
+    font-family: 'AritaBuri', 'Times New Roman', 'NanumGothic', sans-serif !important;
+    font-size: 22px !important;
+    line-height: 1.5em; /* 180318_수정 */
+
+    /* Text Area 사이즈 조절 안되고 스크롤바 사라지게 */
+    resize: none;
+    overflow: hidden;
+}
+
+/* 180326_수정(.edit_2 속성추가) */
+#container .rightcol .paper .summary .edit_2 {
+    text-align: right;
+    font-size: 20px;
+}
+
+#container .rightcol .paper .comments .countup {
+    color: #333;
+    line-height: 46px;
+    border-bottom: 1px solid #666;
+    margin-bottom: 0;
+}
+
+#container .rightcol .paper .comments .cbox_content_wrap {
+    margin-bottom: 24px;
+}
+
+#container .rightcol .paper .comments .cbox_list .cbox_comment {
+    border-bottom: 1px solid #d7d7d7;
+    padding: 18px 0;
+}
+
+#container .rightcol .paper .comments .cbox_comment .cbox_info {
+    font-size: 17.5px;
+    color: #222;
+}
+
+#container .rightcol .paper .comments .cbox_comment .cbox_contents {
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+#container .rightcol .paper .comments .cbox_comment .u_cbox_date {
+    font-size: 13px;
+    color: #999;
+}
+
+#container .rightcol .paper .comments .texttype .typing {
+    width: 790px;
+    height: 100px;
+    display: inline-block;
+    margin: 0;
+    padding: 6px;
+    box-sizing: border-box;
+    overflow-y: scroll;
+}
+
+#container .rightcol .paper .comments .texttype .textenter {
+    width: 101px;
+    height: 100px;
+    display: inline-block;
+    text-align: center;
+    line-height: 92px;
+    border: 1px solid #999;
+    margin: 0;
+    cursor: pointer;
+    position: relative;
+    top: -46px;
+    left: -4px;
+}
+
+/**** Sub3_1 학생활동_학과정보 ****/
+#container .rightcol .classInfo {
+    text-align: center;
+}
+
+#container .rightcol .classInfo .classHead > tr {
+    height: 55px;
+    border-top: 2px solid #33599a;
+    border-bottom: 1px solid #dddddd;
+    background-color: #f8f8f8;
+}
+
+#container .rightcol .classInfo .classHead > tr > th {
+    text-align: center;
+}
+
+#container .rightcol .classInfo .classBody > tr {
+    height: 45px;
+    border-bottom: 1px solid #dddddd;
+}
+
+#container .rightcol .classInfo .classBody .nocen {
+    text-align: left;
+}
+
+#container .rightcol .classInfo .classBody .nocen a {
+    color: #666;
+}
+
+/**** Sub3_3 학생활동_학과정보 ****/
+#container .rightcol .sso_list ul {
+    max-width: 690px;
+}
+
+#container .rightcol .so_list .inputLogo {
+    float: left;
+}
+
+#container .rightcol img.club-logo {
+    width: 172px;
+    height: 172px;
+    border: 1px solid #ccc !important;
+}
+
+#container .rightcol a.club-link {
+    display: block;
+    margin-top: 10px;
+    width: 172px;
+    height: 35px;
+    border: 1px solid #33599a;
+    background: white;
+    color: #33599a;
+    text-align: center;
+    line-height: 34px;
+    transition: 0.2s;
+    -webkit-transition: 0.2s;
+}
+
+#container div.clubcard {
+    margin-bottom: 40px;
+}
+
+#container .rightcol .so_list .society {
+    float: right;
+    width: 690px;
+    height: auto;
+    padding-top: 10px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+#container .rightcol .clubcard .so_name {
+    font-size: 29px;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 18px;
+}
+
+#container .rightcol .clubcard .so_desc {
+    line-height: 24px;
+    overflow: visible;
+    word-break: break-all;
+    min-height: 100px;
+}
+
+#container .rightcol .clubcard .so_info {
+    float: left;
+}
+
+#container .rightcol .clubcard .so_info p.contact-title {
+    display: inline-block;
+    font-weight: bold;
+    width: 120px;
+}
+
+#container .rightcol .clubcard .so_info p.contact {
+    display: inline-block;
+    float: right;
+}
+
+#container .rightcol .so_list .society .so_info li {
+    line-height: 24px;
+}
+
+#container .rightcol .so_list .society .so_homepage {
+    position: absolute;
+    bottom: 6px;
+    right: 0;
+}
+
+#container .rightcol .societyList li:last-child {
+    margin-bottom: 100px;
+}
+
+/**** Sub3_4 학생활동_갤러리 ****/
+#container .rightcol .g_wrapper {
+    width: 895px;
+    overflow: hidden;
+}
+
+#container .rightcol .galleryList {
+    width: 932px;
+}
+
+#container .rightcol .galleryList li {
+    float: left;
+    text-align: center;
+    margin-right: 36px;
+    margin-bottom: 20px;
+}
+
+#container .rightcol .galleryList li .g_img {
+    margin-bottom: 14px;
+}
+
+#container .rightcol .galleryList li a .g_tit {
+    font-size: 14px;
+    color: #666;
+    line-height: 0.8em;
+}
+
+#container .rightcol .galleryList li a .g_date {
+    font-size: 12px;
+    color: #9b9b9b;
+    line-height: 0.8em;
+}
+
+div.post-content {
+    border-width: 1px;
+    border-color: #ccc;
+    border-style: solid;
+    padding: 5px;
+}

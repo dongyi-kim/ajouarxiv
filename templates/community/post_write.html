@@ -1,0 +1,93 @@
+{% extends 'community/__base__community.html' %}
+{% load staticfiles %}
+{% load compress %}
+
+{% block tab_name %}
+    {% if post %}
+        게시물 수정 #{{ post.post_id }}
+    {% else %}
+        게시물 작성
+    {% endif %}
+{% endblock %}
+
+{% block js %}
+    {{ block.super }}
+    <script src="{% static 'externallib/ckeditor/ckeditor.js' %}"></script>
+{% endblock %}
+
+{% block tab_content %}
+    <p class="subTit_right">
+        {% if post %}
+            게시물 수정 #{{ post.post_id }}
+        {% else %}
+            게시물 작성
+        {% endif %}
+    </p>
+    <div class="post-write" style="width: 895px; margin-bottom: 200px;">
+        <form id="post_form" name="post_form" method="post" action="{{ request.path }}"> {% csrf_token %}
+            <div class="row">
+                <div class="form-group">
+                    <label for="post_title" class="col-sm-1 control-label"></label>
+
+                    <div class="col-sm-12">
+                        <div class="input-group">
+                            <div class="input-group-addon">제목</div>
+                            <input type="text" class="form-control arita" id="post_title" name="post_title"
+                                   placeholder="게시물 제목을 입력하세요." maxlength="100" value="{{ post.post_title }}">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <br/><br/>
+            <div class="row">
+                <div class="form-group">
+                    <textarea name="post_content" style="width: 100%; min-height: 800px;"
+                              id="post_content" maxlength="10000">{{ post.post_content }}</textarea>
+                    <script type="text/javascript">
+                        CKEDITOR.replace('post_content', {
+                            removePlugins: 'resize,uploadfile,uploadimage',
+                            autoGrow_minHeight: 700,
+                            autoGrow_onStartup: true,
+                            removeButtons: 'Image'
+
+                        })
+                    </script>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <p class="post">
+                        <button id="btn_submit" type="button" style="float: right;">작성 완료</button>
+                    </p>
+                </div>
+
+            </div>
+
+        </form>
+    </div>
+
+    {% compress js %}
+        <script type="text/javascript">
+            $(document).ready(function () {
+                window.onbeforeunload = function () {
+                    return "저장하지 않은 내용이 있습니다. 그래도 이동하시겠습니까?";
+                };
+
+                $('#btn_submit').on("click", function (event) {
+                    title = $('#post_title').val();
+                    if (title.length < 5) {
+                        alert('너무 짧은 제목입니다.');
+                        return;
+                    }
+                    // disable unload warning
+                    window.onbeforeunload = null;
+                    $('#post_form').submit();
+                });
+            });
+
+        </script>
+    {% endcompress %}
+
+{% endblock %}

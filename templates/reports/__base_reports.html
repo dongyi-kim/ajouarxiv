@@ -1,0 +1,65 @@
+{% extends '__base__client.html' %}
+{% load staticfiles %}
+{% load compress %}
+
+{% block css %}
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'css/common.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'css/sub1.css' %}" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+<!----- content ----->
+{% block content %}
+    <!----- Visual ----->
+    <section id="visual">
+        <div class="subReport"></div>
+        <div class="subnavi">
+            <div class="wrapper">
+                <ul class="clearfix">
+                    <li><a href="{% url 'index' %}">홈</a></li>
+                    <li>></li>
+                    <li><a href="{% url 'reports_home' %}">1인1기1작</a></li>
+                    <li>></li>
+                    <li><a href="{{ request.path }}">{% block tab_name %}현재 페이지{% endblock %}</a></li>
+                </ul>
+            </div>
+            <div class="line"></div>
+        </div>
+    </section>
+    <!----- //Visual ----->
+
+    <!----- conatainer ----->
+    <section id="container">
+        <div class="wrapper clearfix">
+            <div class="subMenu">
+                <p class="subTit">1인1기1작</p>
+                <ul class="subMenu_list">
+                    <li {% if request.resolver_match.url_name == "reports_home" %}class="active"{% endif %}><a
+                            href="{% url 'reports_home' %}">교육과정 소개</a></li>
+                    <li {% if request.resolver_match.url_name == "reports_list" or request.resolver_match.url_name == "reports_view" %}class="active"{% endif %}>
+                        <a href="{% url 'reports_list' %}">학술보고서 검색</a></li>
+                    <li {% if request.resolver_match.url_name == "reports_help" %}class="active"{% endif %}><a
+                            href="{% url 'reports_help' %}">학술보고서 투고</a></li>
+                    <li {% if request.resolver_match.url_name == "reports_writings" %}class="active"{% endif %}><a
+                            href="{% url 'reports_writings' %}">나의 보고서</a></li>
+                </ul>
+            </div>
+            <div class="rightcol" style="min-height: 700px">
+                {% block tab_content %}
+                    <div>
+                        <p class="introImg"><img src="{% static 'images/introImg.jpg' %}" alt="1인1작소개"></p>
+                        <p class="introDesc">
+                            텍스트 입력란입니다. 텍스트 입력란입니다.텍스트 입력란입니다.텍스트 입력란입니다.텍스트 입력란입니다.텍스트 입력란입니다.텍스트 입력란 입니다. 텍스트 입력란입니다.
+                            텍스트 입력란입니다.텍스트 입력란입니다.텍스트 입력란입니다.텍스트 입력란입니다.텍스트 입력란입니다.텍스트 입력란 입니다. 텍스트 입력란입니다. 텍스트
+                            입력란입니다.텍스트 입력란입니다.텍스트 입력란입니다.텍스트 입력란입니다.텍스트 입력란 입니다. 텍스트 입력란 입니다. 텍스트 입력란입니다. 텍스트 입력란입니다.텍스트
+                            입력란입니다.텍스트 입력란입니다.텍스트 입력란입니다.텍스트 입력란 입니다.텍스트 입력란 입니다. 텍스트 입력란입니다. 텍스트 입력란입니다.텍스트 입력란입니다.텍스트
+                            입력란입니다.텍스트 입력란입니다.텍스트 입력란입니다.텍스트 입력란 입니다. 텍스트 입력란입니다. 텍스트 입력란입니다.텍스트 입력란입니다.텍스트 입력란입니다.텍스트
+                            입력란 입니다.텍스트 입력란입니다.텍스트 입력란 입니다.
+                        </p>
+                    </div>
+                {% endblock %}
+            </div>
+        </div>
+    </section>
+    <!----- //conatainer ----->
+{% endblock %}

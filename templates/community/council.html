@@ -1,0 +1,77 @@
+{% extends 'community/__base__community.html' %}
+{% load staticfiles %}
+
+{% block title %}경제학과 학생회 소개{% endblock %}
+{% block tab_name %}학생회 소개{% endblock %}
+
+{% block tab_content %}
+    <p class="subTit_right">학생회</p>
+
+    {% for card in card_list %}
+        <div class="row clubcard">
+            <div class="col-lg-3">
+                <img class="club-logo" src="{{ card.image.url }}" alt="로고">
+
+                <a class="club-link" href="{{ card.url }}">홈페이지 바로가기</a>
+            </div>
+            <div class="col-lg-9">
+                <p class="so_name">{{ card.name }}</p>
+                <p class="so_desc">{{ card.description }}</p>
+                <ul class="so_info">
+                    <li>
+                        <p class="contact-title">
+                            주 연락처
+                        </p>
+                        <p class="contact">
+                            {{ card.main_contact }}
+                        </p>
+                    </li>
+                    <li>
+                        <p class="contact-title">
+                            보조 연락처
+                        </p>
+                        <p class="contact">
+                            {{ card.sub_contact }}
+                        </p>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    {% empty %}
+
+        <div class="row clubcard">
+
+            <div class="col-lg-3">
+                <img class="club-logo" src="{% static 'images/so_logo.gif' %}" alt="로고">
+
+                <a class="club-link" href="#">홈페이지 바로가기</a>
+            </div>
+            <div class="col-lg-9">
+                <p class="so_name">등록된 정보가 없습니다!</p>
+                <p class="so_desc">현재 등록된 정보가 없네요!</p>
+                <ul class="so_info">
+                    <li>
+                        <p class="contact-title">
+                            주 연락처
+                        </p>
+                        <p class="contact">
+                            {{ card.main_contact }}
+                        </p>
+                    </li>
+                    <li>
+                        <p class="contact-title">
+                            보조 연락처
+                        </p>
+                        <p class="contact">
+                            {{ card.sub_contact }}
+                        </p>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+    {% endfor %}
+
+{% endblock %}

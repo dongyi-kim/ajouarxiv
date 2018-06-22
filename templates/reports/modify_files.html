@@ -1,0 +1,120 @@
+{% extends '__base__client.html' %}
+{% load staticfiles %}
+{% load compress %}
+{% block css %}
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'css/common.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'css/sub1.css' %}" rel="stylesheet" type="text/css"/>
+
+{% endblock %}
+{% block content %}
+    <!----- Visual ----->
+    <section id="visual">
+        <div class="subReport"></div>
+        <div class="subnavi">
+            <div class="wrapper">
+                <ul class="clearfix">
+                    <li><a href="{% url 'index' %}">홈</a></li>
+                    <li>></li>
+                    <li><a href="{% url 'reports_writings' %}">1인1기1작</a></li>
+                    <li>></li>
+                    <li><a href="{{ request.path }}">{% block tab_name %}보고서 수정{% endblock %}</a></li>
+                </ul>
+            </div>
+            <div class="line"></div>
+        </div>
+    </section>
+
+
+    <div class="container" style="min-height: 1000px">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                            data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">보고서 #{{ report.report_id }}</a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li><a href="{% url 'reports_modify_info' report.report_id %}">내용 수정</a></li>
+                        <li class="active"><a href="{% url 'reports_modify_file' report.report_id %}">보고서 파일관리</a></li>
+                        <li><a href="{% url 'reports_modify_upload' report.report_id %}">보고서 업로드</a></li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+
+        <div class="row-lg-12">
+
+            <section id="container">
+                <div class="col-sm-12">
+
+
+                    <table class="classInfo" style="width: 100%; min-width: 900px">
+
+                        <thead class="classHead">
+                        <tr>
+                            <th>번호</th>
+                            <th>게시일</th>
+                            <th>변동사항 메모</th>
+                            <th>전문 등록</th>
+                            <th>다운로드</th>
+                        </tr>
+                        </thead>
+                        <tbody class="classBody">
+
+
+                        {% for file in file_list %}
+                            <tr>
+                                <td>#{{ file.report_file_id }}</td>
+                                <td>{{ file.created_date|date:'Y-m-d H:m:s' }}</td>
+                                <td>{{ file.commit_message }}</td>
+
+                                {% if file.enabled %}
+                                    <td>
+                                        <button type="button" class="btn btn-success" disabled>게시 됨</button>
+                                    </td>
+                                {% else %}
+
+                                    <td>
+                                        <form action="{% url 'reports_modify_file' report.report_id %}"
+                                              method="post">{% csrf_token %}
+                                            <input type="hidden" name="report_file_id"
+                                                   value="{{ file.report_file_id }}"/>
+                                            <input type="hidden" name="report_id" value="{{ report.report_id }}"/>
+                                            <button type="submit" class="btn btn-success">게시하기</button>
+                                        </form>
+                                    </td>
+                                {% endif %}
+                                <td><a class="btn btn-default" href="{{ file.file.url }}" role="button"
+                                       download>{{ file.filename }}</a></td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="5">표시 할 파일이 없습니다!</td>
+                            </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+
+
+                </div>
+
+
+            </section>
+        </div>
+
+
+    </div>
+
+
+{% endblock %}

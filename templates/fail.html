@@ -1,0 +1,42 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    {% include '__head__account.html' %}
+</head>
+<body>
+<section id="login">
+    <div class="boxtable">
+        <p class="biglogo"><a href="{% url 'index' %}"><img src="{% static 'images/login_logo.png' %}" alt="home"></a>
+        </p>
+        <div class="whiteBg">
+            <div class="loginbox">
+                {% if title != None %}
+                    <p class="loginText">{{ title }}</p>
+                {% else %}
+                    <p class="loginText">잘못된 접근 요청</p>
+                {% endif %}
+            </div>
+            </br>
+
+            <img src="{% static 'images/x_icon.png' %}" width="300px" height="375px"/>
+
+            </br>
+            </br>
+            {% if message != None %}
+                <p>{{ message }}</p>
+            {% else %}
+                <p>올바르지 않은 접근입니다!</p>
+            {% endif %}
+            </br>
+            </br>
+            <p class="loginBtn"><a href="{% url 'index' %}">메인으로 돌아가기</a></p>
+            <br>
+            <br>
+
+        </div>
+
+    </div>
+</section>
+</body>
+</html>

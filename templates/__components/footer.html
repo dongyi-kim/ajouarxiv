@@ -1,0 +1,42 @@
+{% load staticfiles %}
+{% load compress %}
+<!----- footer ----->
+<footer id="footer">
+    <div class="wrapper clearfix">
+        <h2 class="f_logo">
+            <a href="#"><img src="{% static 'images/f_logo.gif' %}" alt="아주대학교 경제학과"></a>
+        </h2>
+        <div class="info">
+            <p class="address">우) 16499 경기도 수원시 영통구 월드컵로206 아주대학교 경제학과 TEL 031-219-2732
+                </br>학생회장 : test@ajou.ac.kr ㅣ 서버관리자 : dykim@codingmonster.net</p>
+            <p class="powered">
+                Powered & Directed by.아주대학교 경제학과, 아주대학교 LINC사업단<br/>
+                Developed by. Dongyi Kim ㅣ Desgiend by. Juhyun Lee ㅣ Planned by. Seokhyun Yoon <br/>
+
+
+                <br/>Copyrightⓒ 2018 Dept. of Economics, All rights reserved
+            </p>
+        </div>
+        <div class="quickLink">
+            <select class="box" id="quick_link" name="quick_link">
+                <option value="" selected="">Quick Link</option>
+                <option value="https://www.ajou.ac.kr">아주대학교</option>
+                <option value="https://portal.ajou.ac.kr">AIMS2</option>
+            </select>
+        </div>
+    </div>
+    {% compress js %}
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#quick_link').on('change', function () {
+                    var target = $('#quick_link').val();
+                    if (target === "") {
+                        return;
+                    } else {
+                        window.location.href = target;
+                    }
+                });
+            });
+        </script>
+    {% endcompress %}
+</footer>

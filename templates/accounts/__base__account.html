@@ -1,0 +1,37 @@
+{% load staticfiles %}
+{% load compress %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8"/>
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+    <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}아주대학교 1인1기1작{% endblock %}</title>
+
+    {% compress css %}
+        <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+        <link href="{% static 'css/common.css' %}" rel="stylesheet" type="text/css"/>
+        <link href="{% static 'css/login.css' %}" rel="stylesheet" type="text/css"/>
+    {% endcompress %}
+    <!-- 부트스트랩 -->
+    {% compress js %}
+        <script src="{% static 'jquery/1.11.2/jquery.min.js' %}"></script>
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    {% endcompress %}
+    {% block head %}
+
+    {% endblock %}
+</head>
+<body>
+<!----- content ----->
+{% block content %}{% endblock %}
+
+{% block foot %}
+
+{% endblock %}
+</body>
+
+
+</html>

@@ -1,0 +1,85 @@
+{% extends 'accounts/__base__account.html' %}
+{% load staticfiles %}
+{% load compress %}
+
+{% block head %}
+    {% compress js %}
+        <script type="text/javascript">
+            var clickable = false;
+
+            function send_request() {
+                if (clickable !== true) {
+                    return;
+                }
+                clickable = false;
+                const url = "{% url 'api_email_verification' %}"; // the script where you handle the form input.
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: $("#form").serialize(), // serializes the form's elements.
+                    success: function (data) {
+                        window.location.href = "{% url 'email_verification_done' %}";
+                    },
+                    error: function (data) {
+                        msg = data.responseJSON.__all__[0].message;
+                        $('#notice').text(msg).show();
+                        clickable = true;
+                    }
+                });
+            }
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#email').keydown(function (e) {
+                    if (e.keyCode === 13) {
+                        send_request();
+                    }
+                });
+                clickable = true;
+            })
+        </script>
+    {% endcompress %}
+    {% compress css %}
+        <style>
+            .noticeRed {
+                height: 22px;
+                color: #ff0000;
+                font-size: 14px;
+                text-align: left;
+                background-image: url({% static 'images/icon_notice.gif' %});
+                background-repeat: no-repeat;
+                background-position: left center;
+                padding: 3px 0 0 22px;
+                margin-left: 70px;
+                display: none;
+            }
+        </style>
+    {% endcompress %}
+
+{% endblock %}
+
+{% block content %}
+    <section id="login">
+        <div class="boxtable">
+            <p class="biglogo"><a href="{% url 'index' %}"><img src="{% static 'images/login_logo.png' %}"
+                                                                alt="home"></a></p>
+            <div class="whiteBg">
+                <form action="{% url 'api_email_verification' %}" method="post" id="form"> {% csrf_token %}
+                    <div class="loginbox">
+                        <p class="loginText">이메일 인증</p>
+                        <br/>
+                    </div>
+                    <input id="email" name="email" type="email" class="loginId" placeholder="아주대학교 이메일 (*@ajou.ac.kr)"
+                           maxLength="50"
+                           style="background:url({% static 'images/icon_id.gif' %}) 24px center no-repeat; text-transform: lowercase; ime-mode: disabled"/>
+                    <p id="notice" class="noticeRed"></p>
+                    <p class="loginBtn"><a id="button" href="#" onclick="send_request();">인증요청</a></p>
+                </form>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+            </div>
+        </div>
+    </section>
+{% endblock %}

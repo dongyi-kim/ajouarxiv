@@ -1,0 +1,37 @@
+{% extends 'accounts/__base__account.html' %}
+
+{% load staticfiles %}
+
+
+{% block content %}
+    <section id="login">
+        <div class="boxtable">
+            <p class="biglogo"><a href="{% url 'index' %}"><img src="{% static 'images/login_logo.png' %}"
+                                                                alt="home"></a></p>
+            <div class="whiteBg">
+                <div class="loginbox">
+                    <p class="loginText">존재하지 않는 페이지입니다</p>
+                </div>
+                </br>
+
+                <img src="{% static 'images/x_icon.png' %}" width="300px" height="375px"/>
+
+                </br>
+                </br>
+                {% if message != None %}
+                    <p>{{ message }}</p>
+                {% else %}
+                    <p>올바르지 않은 접근입니다!</p>
+                {% endif %}
+                </br>
+                </br>
+                <p class="loginBtn"><a href="{% url 'index' %}">메인으로 돌아가기</a></p>
+                <br>
+                <br>
+
+            </div>
+
+        </div>
+    </section>
+
+{% endblock %}

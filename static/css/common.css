@@ -1,0 +1,174 @@
+@import url(https://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@import url(https://spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css);
+
+@font-face {
+  font-family: 'AritaBuri';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/Arita-buriM_web.woff') format('woff');
+}
+@font-face {
+  font-family: 'AritaBuri';
+  font-style: normal;
+  font-weight: 600;
+  src: url('../fonts/Arita-buriSB_web.woff') format('woff');
+}
+@font-face {
+  font-family: 'AritaBuri';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../fonts/Arita-buriB_web.woff') format('woff');
+}
+
+/* Reset */
+*{ margin:0; padding:0; font-size: 100%; line-height:1;
+    font-family: 'Spoqa Han Sans','nanumgothic','Sans-serif';}
+html,body{width:100%;height:100%}
+li{list-style:none}
+a{text-decoration:none;}
+img{vertical-align:bottom; margin:0; padding:0}
+img,fieldset,iframe{border:0 none}
+input,select,button{vertical-align:middle}
+i,em,address{font-style:normal}
+label,button{cursor:pointer}
+
+
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, footer, header, hgroup,
+menu, nav, section { display: block;}
+
+
+
+/* Common */
+.clearfix::after {
+	content:'';
+	display: block;
+	clear: both;
+}
+body{
+    font-family: 'Spoqa Han Sans', 'nanumgothic', sans-serif;
+    font-weight: normal;
+    font-size: 16px;
+    color: #666;
+}
+.wrapper {
+    width: 1200px;
+    margin: 0 auto;
+    position: relative;
+}
+
+/**** Header ****/
+#header .lnbBg{
+    background-color: #33599a;
+    min-width: 1200px;
+    height: 32px;
+}
+#header .lnbBg .lnbList{
+    float: right;
+}
+#header .lnbBg .lnbList>li{
+    float: left;
+    margin-right: 10px;
+}
+#header .lnbBg .lnbList>li a{
+    font-size: 11px;
+    color: #fff;
+    line-height: 30px;
+    transition: all 0.2s;
+    -webkit-transition: all 0.2s;
+}
+#header .lnbBg .lnbList>li:nth-child(2){
+    background-image: url(../images/lnbBar.gif);
+    background-repeat: no-repeat;
+    background-position: left center;
+    padding-left: 10px;
+    margin: 0;
+}
+#header .lnbBg .lnbList>li a:hover{
+    opacity: 0.8;
+}
+#header .gnbHeignt{
+    height: 60px;
+    padding-top: 8px;
+    box-sizing: border-box;
+}
+#header .gnbHeignt .logo{
+    margin: 0; padding: 0;
+    float: left;
+}
+#header .gnbHeignt .logo a{
+    display: block;
+    height: 100%;
+    margin: 0; padding: 0;
+}
+#header .gnbHeignt .Gnb{
+    position: absolute;
+    right: 0;
+    padding-top: 12px;
+}
+#header .gnbHeignt .Gnb li{
+    float: left;
+    font-weight: 400;
+    margin-left: 53px;
+}
+#header .gnbHeignt .Gnb li a{
+    font-size: 18px;
+    color: #555;
+} 
+#header .gnbHeignt .Gnb li a:hover{
+    color: #33599a;
+}
+
+/*** Footer ***/
+#footer{
+    background-color: #2e2f33;
+    min-width: 1200px;
+    padding: 50px 0;
+}
+#footer .f_logo{
+    float: left;
+    margin-right: 125px;
+}
+#footer .info{
+    float: left;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 300;
+}
+#footer .info .address{
+    margin-bottom: 25px;
+    color: #888;
+    line-height: 20px;
+}
+#footer .info .powered{
+    line-height: 20px;
+}
+#footer .quickLink{
+    float: right;
+}
+#footer .quickLink .box{
+    width: 190px; height: 30px;
+    background-color: #2e2f33;
+    color: #888;
+    font-size: 14px;
+}
+
+
+
+
+a.removed
+{
+    text-decoration: line-through;
+    color: darkgrey !important;
+}
+
+
+
+
+
+
+
+
+
+

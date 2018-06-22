@@ -1,0 +1,16 @@
+{% if filter.user %}
+    <div class="alert alert-info" role="alert">
+        <strong>Search Result > </strong>
+        작성자의 이름(혹은 아이디) 중 "{{ filter.user }}"가 포함된 결과입니다.
+    </div>
+{% elif filter.title %}
+    <div class="alert alert-info" role="alert">
+        <strong>Search Result > </strong>
+        제목에 "{{ filter.title }}"가 포함된 결과입니다.
+    </div>
+{% elif filter.content %}
+    <div class="alert alert-info" role="alert">
+        <strong>Search Result > </strong>
+        내용에 "{{ filter.content }}"가 포함된 결과입니다.
+    </div>
+{% endif %}

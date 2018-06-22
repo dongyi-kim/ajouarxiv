@@ -1,0 +1,18 @@
+{% extends 'community/__base__community.html' %}
+
+{% block tab_content %}
+    <div class="paper">
+        <p class="paperTit">{{ post.post_title }}</p>
+        <div class="paperCont clearfix">
+            <ul class="paperInfo clearfix">
+                <li><p class="pleft">게시글 작성자</p>
+                    <p class="pright">김경제, 홍길동</p></li>
+                <li><p class="pleft">최초게시 날짜</p>
+                    <p class="pright">2018.01.25</p></li>
+                <li><p class="pleft">최종수정 날짜</p>
+                    <p class="pright">2018.01.25</p></li>
+            </ul>
+        </div>
+        <div class="post-content">{{ post.post_conttent }}</div>
+    </div>
+{% endblock %}

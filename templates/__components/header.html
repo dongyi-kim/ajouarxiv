@@ -1,0 +1,29 @@
+{% load staticfiles %}
+<!----- header ----->
+<header id="header">
+    <div class="lnbBg">
+        <nav class="wrapper">
+            <ul class="lnbList clearfix">
+                {% if user.is_active %}
+                    <li><a href="#">{{ user.get_username }}</a></li>
+                    <li><a href="{% url 'logout' %}" onclick="return confirm('로그아웃 하시겠습니까?');">Logout</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">LOGIN</a></li>
+                    <li><a href="{% url 'email_verification' %}">JOIN</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+    <div class="gnbHeignt wrapper clearfix">
+        <h1 class="logo">
+            <a href="{% url 'index' %}">
+                <img src="{% static 'images/logo.png' %}" alt="아주대학교 경제학과">
+            </a>
+        </h1>
+        <ul class="Gnb">
+            <li><a href="{% url 'reports_home' %}">1인1기1작</a></li>
+            <li><a href="{% url 'community_notice' %}">공지사항</a></li>
+            <li><a href="{% url 'community_post' %}">학생활동</a></li>
+        </ul>
+    </div>
+</header>

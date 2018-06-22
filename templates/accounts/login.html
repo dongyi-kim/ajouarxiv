@@ -1,0 +1,73 @@
+{% extends 'accounts/__base__account.html' %}
+{% load staticfiles %}
+{% load compress %}
+
+{% block head %}
+    {% compress js %}
+        <script type="text/javascript">
+            var clickable = false;
+
+            function send_request() {
+                if (clickable !== true) {
+                    return;
+                }
+                clickable = false;
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'api_login' %}",
+                    data: $("#form").serialize(), // serializes the form's elements.
+                    success: function (data) {
+                        window.location.href = "{% url 'index' %}";
+                    },
+                    error: function (data) {
+                        $('#notice').text("아이디 혹은 비밀번호가 잘못되었습니다.").show();
+                        clickable = true;
+                    }
+                });
+            }
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                function onEnter(e) {
+                    if (e.keyCode === 13) {
+                        send_request();
+                    }
+                }
+
+                $('#id_username').keydown(onEnter);
+                $('#id_password').keydown(onEnter);
+                clickable = true;
+            })
+        </script>
+    {% endcompress %}
+{% endblock %}
+
+{% block content %}
+    <section id="login">
+        <div class="boxtable">
+            <p class="biglogo"><a href="#"><img src="{% static 'images/login_logo.png' %}" alt="home"></a></p>
+            <div class="whiteBg">
+                <form action="../" method="post" id="form"> {% csrf_token %}
+                    <div class="loginbox">
+                        <p class="loginText">로그인</p>
+                    </div>
+                    <input id="id_username" name="username" type="text" class="username" placeholder="아이디"
+                           maxLength="30"
+                           style="background:url({% static 'images/icon_id.gif' %}) 24px center no-repeat"/>
+                    <input id="id_password" name="password" type="password" class="password" placeholder="비밀번호"
+                           maxLength="30"
+                           style="background:url({% static 'images/icon_pw.gif' %}) 24px center no-repeat"/>
+                    <input type="hidden" name="next" value="{{ next }}"/>
+                    <p id="notice" class="noticeRed"></p>
+                    <p class="loginBtn"><a href="#" onclick="send_request();">Login</a></p>
+                    <div class="subBtn_group clearfix">
+                        <p class="remember"><input type="checkbox"/>아이디 저장</p>
+                        <p class="forgotPw"><a href="#">비밀번호 찾기</a></p>
+                    </div>
+                </form>
+            </div>
+            <div class="grayBg">아직 회원이 아니신가요? <a href="{% url 'email_verification' %}"> 회원가입 하러가기</a></div>
+        </div>
+    </section>
+    <script type="text/javascript">document.getElementById('id_username').focus()</script>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'community/__base_notice.html' %}
+
+
+{% block tab_name %} 공지사항 #{{ post.post_id }}{% endblock %}
+
+{% block tab_content %}
+    <div class="paper">
+        <p class="paperTit">{{ post.post_title }}</p>
+        <div class="paperCont clearfix">
+            <ul class="post-manage">
+                {% if request.user == post.user or request.user.is_superuser %}
+                    <li><p class="post"><a
+                            href="{% url 'community_notice_modify' post.post_id %}">수정하기</a></p></li>
+                {% endif %}
+            </ul>
+            <ul class="paperInfo clearfix">
+                <li><p class="pleft">게시글 작성자</p>
+                    <p class="pright">{{ post.user.profile.name_kor }}</p></li>
+                <li><p class="pleft">최초게시 날짜</p>
+                    <p class="pright">{{ post.created_date|date:'Y-m-d H:m' }}</p></li>
+                <li><p class="pleft">최종수정 날짜</p>
+                    <p class="pright">{{ post.updated_date|date:'Y-m-d H:m' }}</p></li>
+            </ul>
+        </div>
+        {% if not post.is_visible %}
+            <div class="alert alert-danger" role="alert">
+                <strong>DELETED POST! </strong>
+                현재 이 게시글은 삭제되어 다른 사람에게 보여지지 않습니다.
+            </div>
+        {% endif %}
+        <div class="post-content">
+            {{ post.post_content|safe }}
+        </div>
+        {% load disqus_tags %}
+        {% disqus_show_comments %}
+    </div>
+{% endblock %}

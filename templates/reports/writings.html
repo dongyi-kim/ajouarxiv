@@ -1,0 +1,188 @@
+{% extends 'reports/__base_reports.html' %}
+
+{% block title %}1인1기1작 나의 보고서 목록{% endblock %}
+{% block tab_name %}나의 보고서{% endblock %}
+
+{% block tab_content %}
+    <p class="subTit_right">나의 보고서 목록</p>
+    <div class="clearfix">
+        <p class="post"><a href="{% url 'reports_create' %}">추가하기</a></p>
+        <ul class="searchBox clearfix">
+            <li>
+                <select class="box" name="search_type" id="search_type">
+                    <option value="title" selected="">제목</option>
+                    <option value="abstract">내용</option>
+                    <option value="author">저자</option>
+                </select>
+            </li>
+            <li>
+                <input id="search_pattern" name="search_pattern" type="text" maxlength="30" value=""
+                       placeholder="검색어를 입력하세요." class="text">
+            </li>
+            <li>
+                <p class="search"><a href="#" onclick="go_search();">검 색</a></p>
+
+            </li>
+        </ul>
+    </div>
+    <table class="reportList">
+        <caption>1인1작 목록</caption>
+        <colgroup>
+            <col width="95px">
+            <col width="690px">
+            <col width="110px">
+
+            {% for report in object_list %}
+                <tbody class="Listset">
+                <tr class="re_tit">
+                    <td>#{{ report.report_id }}</td>
+                    <td class="textStyle"><a
+                            href="{% url 'reports_view' report.report_id %}">{{ report.title|truncatechars:50 }}</a>
+                    </td>
+                    <td> {{ report.created_date|date:'Y.m.d' }}</td>
+                </tr>
+                <tr class="re_content">
+
+                    {% if report.is_public %}
+                        <td class="public">게시됨</td>
+                    {% elif report.is_accessible %}
+                        <td class="accessible">접근허용</td>
+                    {% else %}
+                        <td class="private">비공개</td>
+                    {% endif %}
+                    <td>
+                        <p class="abstract">
+                            요약 : {{ report.abstract | truncatechars:90 }}
+                        </p>
+                        <p class="writer">
+                            저자 : {{ report.authors }}
+                        </p>
+                    </td>
+                    <td class="edit"><a href="{% url 'reports_modify_info' report.report_id %}">수정하기</a></td>
+
+                </tr>
+                </tbody>
+
+            {% empty %}
+                <tbody class="Listset">
+                <tr class="re_tit">
+                    <td>--</td>
+                    <td class="textStyle"><a href="{% url 'reports_writings' %}">현재 표시 할 보고서 목록이 없습니다.</a></td>
+                    <td>----.--.--</td>
+                </tr>
+                <tr class="re_content">
+                    <td></td>
+                    <td><p class="abstract"><a href="{% url 'reports_writings' %}">새 보고서를 작성해보세요!</a></p></td>
+                    <td></td>
+                </tr>
+                </tbody>
+            {% endfor %}
+
+
+        {#        <tbody class="Listset">#}
+        {#            <tr class="re_tit">#}
+        {#                <td>4</td><td class="textStyle">사회적 이슈와 경제의 상관관계에 대하여</td><td>2018.02.18</td>#}
+        {#            </tr>#}
+        {#            <tr class="re_content">#}
+        {#                <td></td><td><p class="abstract">요약: 이곳에는 논문의 abstract 간결이 출력됩니다. 이곳에는 논문의 abstract 간결이 출력됩니다. 이곳에...</p><p class="writer">저자: 김동이, 남궁교수</p></td><td></td>#}
+        {#            </tr>#}
+        {#        </tbody>#}
+        {#        <tbody class="Listset">#}
+        {#            <tr class="re_tit">#}
+        {#                <td>3</td><td class="textStyle">사회적 이슈와 경제의 상관관계에 대하여</td><td>2018.02.18</td>#}
+        {#            </tr>#}
+        {#            <tr class="re_content">#}
+        {#                <td></td><td><p class="abstract">요약: 이곳에는 논문의 abstract 간결이 출력됩니다. 이곳에는 논문의 abstract 간결이 출력됩니다. 이곳에...</p><p class="writer">저자: 김동이, 남궁교수</p></td><td></td>#}
+        {#            </tr>#}
+        {#        </tbody>#}
+        {#        <tbody class="Listset">#}
+        {#            <tr class="re_tit">#}
+        {#                <td>2</td><td class="textStyle">사회적 이슈와 경제의 상관관계에 대하여</td><td>2018.02.18</td>#}
+        {#            </tr>#}
+        {#            <tr class="re_content">#}
+        {#                <td></td><td><p class="abstract">요약: 이곳에는 논문의 abstract 간결이 출력됩니다. 이곳에는 논문의 abstract 간결이 출력됩니다. 이곳에...</p><p class="writer">저자: 김동이, 남궁교수</p></td><td></td>#}
+        {#            </tr>#}
+        {#        </tbody>#}
+        {#        <tbody class="Listset">#}
+        {#            <tr class="re_tit">#}
+        {#                <td>1</td><td class="textStyle">사회적 이슈와 경제의 상관관계에 대하여</td><td>2018.02.18</td>#}
+        {#            </tr>#}
+        {#            <tr class="re_content">#}
+        {#                <td></td><td><p class="abstract">요약: 이곳에는 논문의 abstract 간결이 출력됩니다. 이곳에는 논문의 abstract 간결이 출력됩니다. 이곳에...</p><p class="writer">저자: 김동이, 남궁교수</p></td><td></td>#}
+        {#            </tr>#}
+        {#        </tbody>#}
+        </colgroup>
+    </table>
+    {#<nav>#}
+    {#    <div class="marginAuto">#}
+    {#        <ul class="pagination">#}
+    {##}
+    {#            {% if page_obj.has_previous %}#}
+    {#                <li>#}
+    {#                    <a href="?page={{ page_obj.previous_page_number }}&{{ query_params }}" aria-label="Previous">#}
+    {#                        <span aria-hidden="true">&laquo;</span>#}
+    {#                    </a>#}
+    {#                </li>#}
+    {#            {% else %}#}
+    {#                <li class="disabled">#}
+    {#                    <a href="#" aria-label="Previous">#}
+    {#                        <span aria-hidden="true">&laquo;</span>#}
+    {#                    </a>#}
+    {#                </li>#}
+    {#            {% endif %}#}
+    {##}
+    {#            {% for i in paginator.page_range %}#}
+    {#                {% if page_obj.number == i %}#}
+    {#                    <li class="active"><a href="#">{{ i }}</a></li>#}
+    {#                {% else %}#}
+    {#                    <li><a href="?page={{ i }}&{{ query_params }}">{{ i }}</a></li>#}
+    {#                {% endif %}#}
+    {#            {% endfor %}#}
+    {##}
+    {##}
+    {##}
+    {##}
+    {#            {% if page_obj.has_next %}#}
+    {#                <li>#}
+    {#                    <a href="?page={{ page_obj.next_page_number }}&{{ query_params }}" aria-label="Next">#}
+    {#                        <span aria-hidden="true">&raquo;</span>#}
+    {#                    </a>#}
+    {#                </li>#}
+    {#            {% else %}#}
+    {#                <li class="disabled">#}
+    {#                    <a href="#" aria-label="Next">#}
+    {#                        <span aria-hidden="true">&raquo;</span>#}
+    {#                    </a>#}
+    {#                </li>#}
+    {#            {% endif %}#}
+    {#        </ul>#}
+    {#    </div>#}
+    {#</nav>#}
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#search_pattern').keydown(function (e) {
+                if (e.keyCode === 13) {
+                    go_search();
+                }
+            })
+        })
+
+        function go_search() {
+            type = $('#search_type').val().trim();
+            pattern = $('#search_pattern').val().trim();
+
+            if (pattern.length === 0) {
+                window.location.href = "{% url 'reports_writings' %}";
+            }
+            else if (pattern.length <= 1) {
+                alert('두 글자 이상의 검색어를 입력하세요.');
+            } else {
+                const url = "{% url 'reports_writings' %}" + '?' + type + '=' + pattern;
+                window.location.href = url;
+            }
+        }
+    </script>
+
+{% endblock %}

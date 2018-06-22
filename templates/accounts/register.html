@@ -1,0 +1,69 @@
+{% extends 'accounts/__base__account.html' %}
+{% load staticfiles %}
+{% load compress %}
+{% block head %}
+    {% compress js %}
+        <script type="text/javascript">
+            var clickable = false;
+
+            function submit() {
+                if (clickable !== true) {
+                    return;
+                }
+                clickable = false;
+                const url = "{% url 'api_register' %}"; // the script where you handle the form input.
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: $("#form").serialize(), // serializes the form's elements.
+                    success: function (data) {
+                        window.location.href = "{% url 'login' %}";
+                    },
+                    error: function (data) {
+                        msg = data.responseJSON.__all__[0].message;
+                        $('#notice').html(msg).show();
+                        clickable = true;
+                    }
+                });
+            }
+
+            $(document).ready(function () {
+                clickable = true;
+            })
+        </script>
+    {% endcompress %}
+{% endblock %}
+
+{% block content %}
+    <section id="join">
+        <div class="boxtable">
+            <p class="biglogo"><a href="{% url 'register' %}"><img src="{% static 'images/login_logo.png' %}"
+                                                                   alt="home"></a></p>
+            <div class="whiteBg">
+                <div class="loginbox">
+                    <p class="loginText">회원가입</p>
+                </div>
+                <form action="{% url 'register' %}" method="post" id="form">{% csrf_token %}
+                    <input id="username" type="text" class="username" placeholder="아이디" maxLength="30" readonly
+                           value="{{ username }}" name="username"/>
+                    <input id="email" type="email" class="email" placeholder="이메일" maxLength="50" readonly
+                           value="{{ email }}" name="email"/>
+                    <input id="name_kor" type="text" class="name-kor" name="name_kor" placeholder="이름 (국문)"
+                           maxLength="30">
+                    {#                    <input id="name_eng" type="text" class="name joining" name="name_eng" placeholder="이름 (영문)" maxLength="50"/>#}
+                    <input id="student_id" name="student_id" type="number" class="student-id" placeholder="학번"
+                           maxLength="10" min="100000000" max="999999999"/>
+                    <input id="password1" type="password" class="password" name="password1" placeholder="비밀번호"
+                           maxLength="20"/>
+                    <input id="password2" type="password" class="password password-confirm" name="password2"
+                           placeholder="비밀번호확인" maxLength="20"/>
+                    <input id="verification_id" type="hidden" value="{{ verification_id }}" readonly
+                           name="verification_id"/>
+                    <input id="hashcode" type="hidden" value="{{ hashcode }}" readonly name="hashcode"/>
+                    <p id="notice" class="noticeRed" style="display: none;"></p>
+                    <p class="joinBtn"><a href="#" onclick="submit();">Join</a></p>
+                </form>
+            </div>
+        </div>
+    </section>
+{% endblock %}

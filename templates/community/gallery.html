@@ -1,0 +1,90 @@
+{% extends 'community/__base__community.html' %}
+{% load staticfiles %}
+
+{% block title %}경제학과 갤러리{% endblock %}
+{% block tab_name %}갤러리{% endblock %}
+
+{% block tab_content %}
+    <p class="subTit_right">갤러리</p>
+    <div class="g_wrapper">
+        <ul class="galleryList clearfix">
+            <li>
+                <a href="#">
+                    <p class="g_img"><img src="{% static 'images/gallery01.jpg' %}"></p>
+                    <p class="g_tit">제목제목제목</p>
+                    <p class="g_date">2018.3.18</p>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <p class="g_img"><img src="{% static 'images/gallery02.jpg' %}"></p>
+                    <p class="g_tit">제목제목제목</p>
+                    <p class="g_date">2018.3.18</p>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <p class="g_img"><img src="{% static 'images/gallery01.jpg' %}"></p>
+                    <p class="g_tit">제목제목제목</p>
+                    <p class="g_date">2018.3.18</p>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <p class="g_img"><img src="{% static 'images/gallery02.jpg' %}"></p>
+                    <p class="g_tit">제목제목제목</p>
+                    <p class="g_date">2018.3.18</p>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <p class="g_img"><img src="{% static 'images/gallery01.jpg' %}"></p>
+                    <p class="g_tit">제목제목제목</p>
+                    <p class="g_date">2018.3.18</p>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <p class="g_img"><img src="{% static 'images/gallery02.jpg' %}"></p>
+                    <p class="g_tit">제목제목제목</p>
+                    <p class="g_date">2018.3.18</p>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <p class="g_img"><img src="{% static 'images/gallery01.jpg' %}"></p>
+                    <p class="g_tit">제목제목제목</p>
+                    <p class="g_date">2018.3.18</p>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <p class="g_img"><img src="{% static 'images/gallery02.jpg' %}"></p>
+                    <p class="g_tit">제목제목제목</p>
+                    <p class="g_date">2018.3.18</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <nav>
+        <div class="marginAuto">
+            <ul class="pagination">
+                <li class="disabled">
+                    <a href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="active"><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li>
+                    <a href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+{% endblock %}

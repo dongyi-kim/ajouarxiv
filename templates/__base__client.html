@@ -1,0 +1,51 @@
+{% load staticfiles %}
+{% load compress %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+    <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+    <title>{% block title %}아주대학교 1인1기1작{% endblock %}</title>
+
+    {% compress css %}
+        {% block css %}
+            <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
+            <link href="{% static 'css/common.css' %}" rel="stylesheet" type="text/css"/>
+        {% endblock %}
+    {% endcompress %}
+
+
+    {% compress js %}
+        {% block js %}
+            <!-- 부트스트랩 -->
+            <script src="{% static 'jquery/1.11.2/jquery.min.js' %}"></script>
+            <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        {% endblock %}
+    {% endcompress %}
+
+
+</head>
+<body>
+
+{% block header %}
+    {% include '__components/header.html' %}
+{% endblock %}
+
+
+<!----- content ----->
+{% block content %}
+
+{% endblock %}
+
+{% block footer %}
+    {% include '__components/footer.html' %}
+{% endblock %}
+
+{% block foot %}
+
+{% endblock %}
+</body>
+</html>

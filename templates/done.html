@@ -1,0 +1,27 @@
+{% extends 'accounts/__base__account.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <section id="login">
+        <div class="boxtable">
+            <p class="biglogo"><a href="{% url 'index' %}"><img src="{% static 'images/login_logo.png' %}"
+                                                                alt="home"></a></p>
+            <div class="whiteBg">
+                <div class="loginbox">
+                    <p class="loginText">인증 요청 완료</p>
+                </div>
+                </br>
+
+                <img src="{% static 'images/success_mark.png' %}" width="250px" height="250px"/>
+
+                </br>
+                <p>인증 메일을 발송했습니다! </p>
+                </br>
+                </br>
+                <p class="loginBtn"><a href="{% url 'index' %}">메인으로 돌아가기</a></p>
+                <br/>
+                <br/>
+            </div>
+        </div>
+    </section>
+{% endblock %}

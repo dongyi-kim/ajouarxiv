@@ -1,0 +1,254 @@
+{% extends '__base__client.html' %}
+{% load staticfiles %}
+{% load compress %}
+{% block css %}
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'css/common.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'css/sub1.css' %}" rel="stylesheet" type="text/css"/>
+    <style>
+        .arita {
+            font-family: 'AritaBuri', 'NanumGothic', 'Times New Roman', 'sans-serif';
+            font-weight: 300;
+            font-size: 18px;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <!----- Visual ----->
+    <section id="visual">
+        <div class="subReport"></div>
+        <div class="subnavi">
+            <div class="wrapper">
+                <ul class="clearfix">
+                    <li><a href="{% url 'index' %}">홈</a></li>
+                    <li>></li>
+                    <li><a href="{% url 'reports_writings' %}">1인1기1작</a></li>
+                    <li>></li>
+                    <li><a href="{{ request.path }}">{% block tab_name %}보고서 수정{% endblock %}</a></li>
+                </ul>
+            </div>
+            <div class="line"></div>
+        </div>
+    </section>
+
+
+    <div class="container" style="min-height: 1000px">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                            data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">보고서 #{{ report.report_id }}</a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="{% url 'reports_modify_info' report.report_id %}">내용 수정</a></li>
+                        <li><a href="{% url 'reports_modify_file' report.report_id %}">보고서 파일관리</a></li>
+                        <li><a href="{% url 'reports_modify_upload' report.report_id %}">보고서 업로드</a></li>
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <button type="button" class="btn btn-default navbar-btn" id="btn_save" disabled>수정 완료
+                            </button>
+                        </li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+
+        {% if not report_file_exists %}
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="alert alert-danger" role="alert"><strong>Note!!</strong> 등록된 전문 파일이 없으면 공개 보고서로 전환할 수
+                        없습니다.
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="row-lg-12">
+            <form class="form-horizontal" id="form" name="form" method="post"
+                  action="{{ request.path }}">{% csrf_token %}
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">보고서 번호</label>
+                    <div class="col-sm-4">
+                        <p class="form-control-static">#{{ report.report_id }}</p>
+                    </div>
+                    <label class="col-sm-2 control-label">보고서 생성일</label>
+                    <div class="col-sm-4">
+                        <p class="form-control-static">{{ report.created_date | date:'Y-m-d H:m:s' }}</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">작성자</label>
+                    <div class="col-sm-4">
+                        <p class="form-control-static">{{ profile.name_kor }}</p>
+                    </div>
+                    <label class="col-sm-2 control-label">최종 수정일</label>
+                    <div class="col-sm-4">
+                        <p class="form-control-static">{{ report.updated_date | date:'Y-m-d H:m:s' }}</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label ">저자 목록</label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control arita" id="authors" name="authors" maxlength="100"
+                               placeholder="저자 이름을 쉼표로 구분하여 입력하세요" value="{{ report.authors }}">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">보고서 제목</label>
+
+                    <div class="col-sm-10">
+                        <div class="input-group">
+                            <div class="input-group-addon">Korean</div>
+                            <input type="text" class="form-control arita" id="title" name="title"
+                                   placeholder="보고서 제목 (5~40글자)" maxlength="100" value="{{ report.title }}">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-2 control-label">보고서 개요</label>
+                    <div class="col-sm-10">
+                        <div class="input-group">
+                            <div class="input-group-addon">Korean</div>
+                            <textarea class="form-control arita" rows="5" style="resize: vertical" name="abstract"
+                                      id="abstract" placeholder="보고서에 대한 한글 개요를 이 곳에 작성하세요."
+                                      maxlength="2000">{{ report.abstract }}</textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-2 control-label"></label>
+                    <div class="col-sm-10">
+                        <div class="input-group">
+                            <div class="input-group-addon">English</div>
+                            <textarea class="form-control arita" rows="5" style="resize: vertical"
+                                      placeholder="Write the abstract for your report here in english."
+                                      id="abstract_eng" name="abstract_eng"
+                                      maxlength="2000">{{ report.abstract_eng }}</textarea>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-2 control-label">보고서 공개 여부</label>
+                    <div class="col-sm-10">
+                        <div class="btn-group" data-toggle="buttons">
+                            {% if not report_file_exists %}
+                                <label class="btn btn-primary">
+                                    <input type="radio" autocomplete="off" disabled readonly="readonly"> 전체공개로 게시
+                                </label>
+                            {% else %}
+                                <label class="btn btn-primary {% if report.is_public %} active {% endif %}">
+                                    <input type="radio" name="is_public" id="accessibility" autocomplete="off"
+                                            {% if report.is_public %} checked {% endif %} > 전체공개로 게시
+                                </label>
+                            {% endif %}
+
+                            <label class="btn btn-primary  {% if report.is_accessible or not report_file_exists %} active {% endif %}">
+                                <input type="radio" name="is_accessible" id="accessibility" autocomplete="off"
+                                        {% if report.is_accessible %} checked {% endif %} > URL로 접근 가능
+                            </label>
+                            <label class="btn btn-primary {% if not report.is_public and not report.is_accessible %} active {% endif %} ">
+                                <input type="radio" name="is_secret" id="accessibility" autocomplete="off"
+                                        {% if not report.is_public and not report.is_accessible %} checked {% endif %} >
+                                비공개
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" name="report_id" value="{{ report.report_id }}"/>
+            </form>
+
+
+        </div>
+
+
+    </div>
+
+    {% compress js %}
+        <script type="text/javascript">
+            $(document).ready(function () {
+                var changed = false;
+                window.onbeforeunload = function () {
+                    if (changed) {
+                        return "저장하지 않은 내용이 있습니다. 그래도 이동하시겠습니까?";
+                    }
+                };
+
+                var changeHandler = function () {
+                    changed = true;
+                    $('#btn_save').attr('disabled', false);
+                };
+
+                var abstract = $('#abstract');
+                var abstract_eng = $('#abstract_eng');
+                var title = $('#title');
+                var authors = $('#authors');
+
+                var length_validator = function (e, min_len, max_len) {
+                    if (e.val().length < min_len || e.val().length > max_len) {
+                        e.closest('.form-group').removeClass('has-success').addClass('has-error');
+                    } else {
+                        e.closest('.form-group').removeClass('has-error').addClass('has-success');
+                    }
+                };
+                $('#accessibility').change(function () {
+                    changeHandler();
+                });
+
+
+                abstract.change(function () {
+                    changeHandler();
+                    length_validator(abstract, 5, 3000);
+                });
+                abstract_eng.change(function () {
+                    changeHandler();
+                    length_validator(abstract_eng, 5, 3000);
+                });
+                title.change(function () {
+                    changeHandler();
+                    length_validator(title, 5, 100);
+                });
+                authors.change(function () {
+                    changeHandler();
+                    length_validator(authors, 2, 100);
+                });
+
+                $('#btn_save').on('click', function () {
+                    if (!confirm('저장하시겠습니까?')) {
+                        return;
+                    }
+                    $.ajax({
+                        type: "POST",
+                        url: "{% url 'reports_modify_info' report.report_id %}",
+                        data: $("#form").serialize(), // serializes the form's elements.
+                        success: function (data) {
+                            changed = false;
+                            $('#btn_save').attr('disabled', true);
+                            alert('저장되었습니다.');
+                        },
+                        error: function (data) {
+                            alert('저장에 실패했습니다.');
+                        }
+                    });
+                });
+            });
+        </script>
+    {% endcompress %}
+{% endblock %}

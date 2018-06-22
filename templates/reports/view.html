@@ -1,0 +1,107 @@
+{% extends 'reports/__base_reports.html' %}
+{% load staticfiles %}
+
+{% block title %}1인1기1작 소개{% endblock %}
+{% block tab_name %}Report #{{ report.report_id }}{% endblock %}
+
+{% block tab_content %}
+    <div class="paper">
+        <p class="paperTit">{{ report.title }}</p>
+        <div class="paperCont clearfix">
+
+            {% if report_file %}
+                <p class="oriView">
+                    <a href="{% url 'reports_download' report.report_id %}">전문보기</a>
+                </p>
+            {% else %}
+
+                <div class="alert alert-danger" role="alert">
+                    <strong>NO REPORT UPLOADED! </strong>
+                    현재 이 보고서는 전문 파일이 업로드되어있지 않습니다.
+                </div>
+                <p class="oriView">
+                    <a href="#" disabled="">전문보기</a>
+                </p>
+            {% endif %}
+
+
+            <ul class="paperInfo clearfix">
+                <li><p class="pleft">저자</p>
+                    <p class="pright">{{ report.authors }}</p></li>
+                <li><p class="pleft">게시자</p>
+                    <p class="pright">{{ profile.name_kor }}</p></li>
+                <li><p class="pleft">이메일</p>
+                    <p class="pright">{{ user.email }}</p></li>
+                <li><p class="pleft">게시날짜</p>
+                    <p class="pright">{{ report.created_date |date:'Y-m-d H:i' }}</p></li>
+                <li><p class="pleft">최종수정날짜</p>
+                    <p class="pright">{{ report.updated_date|date:'Y-m-d H:i' }}</p></li>
+                {#            <li><p class="pleft">URL</p><p class="pright">{{ report_url }}</p></li>#}
+            </ul>
+        </div>
+
+        <div class="summary clearfix">
+            <div class="wide">
+                <ul class="sumtap clearfix">
+                    <li class="active">국문 개요</li>
+                    <li>Abstract</li>
+                </ul>
+            </div>
+            <div class="koen">
+                <textarea id="abstract_kor" class="sumList desc0" readonly="readonly">{{ report.abstract }}</textarea>
+                <textarea id="abstract_eng" class="sumList desc1"
+                          readonly="readonly">{{ report.abstract_eng }}</textarea>
+            </div>
+        </div>
+        <div class="comments">
+            {% load disqus_tags %}
+            {% disqus_show_comments %}
+            {#        <p class="countup">댓글 3</p>#}
+            {#        <div class="cbox_content_wrap">#}
+            {#            <ul class="cbox_list">#}
+            {#                <li class="cbox_comment">#}
+            {#                    <p class="cbox_info">홍길동</p>#}
+            {#                    <span classpyt="cbox_contents" data-lang="ko">댓글댓글댓글댓글댓글댓글댓글댓글</span>#}
+            {#                    <p class="u_cbox_date">2018.03.03</p>#}
+            {#                </li>#}
+            {#                <li class="cbox_comment">#}
+            {#                    <p class="cbox_info">홍길동</p>#}
+            {#                    <span class="cbox_contents" data-lang="ko">댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글</span>#}
+            {#                    <p class="u_cbox_date">2018.03.03</p>#}
+            {#                </li>#}
+            {#                <li class="cbox_comment">#}
+            {#                    <p class="cbox_info">홍길동</p>#}
+            {#                    <span class="cbox_contents" data-lang="ko">댓글댓글댓글댓글댓글댓글댓글댓글</span>#}
+            {#                    <p class="u_cbox_date">2018.03.03</p>#}
+            {#                </li>#}
+            {#            </ul>#}
+            {#        </div>#}
+            {#        <div class="texttype">#}
+            {#            <textarea class="typing"></textarea>#}
+            {#            <p class="textenter">등 록</p>#}
+            {#        </div>#}
+        </div>
+        <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            function setHeight(fieldId) {
+                new_height = document.getElementById(fieldId).scrollHeight + 20;
+                document.getElementById(fieldId).style.height = new_height + 'px';
+            }
+
+            setHeight('abstract_kor');
+            setHeight('abstract_eng');
+            $('.wide ul.sumtap').find('li').click(function () {
+                var index = $(this).index();
+                $('.koen').find('.desc' + index).siblings().hide();
+                $('.koen').find('.desc' + index).fadeIn(0);
+                $(this).siblings().removeClass('active');
+                $(this).addClass('active');
+            });
+            $('.wide ul.sumtap').find('li').eq(0).trigger('click');
+
+
+        });
+    </script>
+{% endblock %}
