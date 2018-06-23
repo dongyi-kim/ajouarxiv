@@ -26,26 +26,46 @@
 - <code>manage.py</code>와 같은 폴더에 <code>local_settings.py</code> 파일을 생성한 이후 아래와 같이 설정해주세요.
 ```python
 # -*- coding: utf-8 -*-
-EMAIL_USE_TLS       = True
-EMAIL_HOST          = 'smtp.gmail.com'
-EMAIL_HOST_USER     = 'test@gmail.com'
-EMAIL_HOST_PASSWORD = '1q2w3e4r!!'
-EMAIL_PORT          =  587
-EMAIL_DISPLAYED_NAME= '아주대학교 1인1기1작 교육과정'
+"""
+서버 디버깅 모드 설정
+"""
+IS_DEBUG_MODE = True
 
-BASE_HOST        = 'your.domain.com:80'
-BASE_PROTOCOL    = 'http'
-BASE_URL         = BASE_PROTOCOL + "://" + BASE_HOST
-ALLOWED_HOSTS = ['*']
+"""
+서버 접속을 위한 기본 설정 
+"""
+BASE_HOST = 'your.site.com:8000'
+BASE_PROTOCOL = 'http'
+BASE_URL = BASE_PROTOCOL + "://" + BASE_HOST
 
+"""
+서버 보안 설정
+"""
+SECRET_KEY = 'YOUR SECRET KEY HERE'
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*']
 
-# 회원 가입을 허용할 이메일 도메인을 리스트 형식으로 작성해주세요.
+"""
+이메일 인증 및 회원가입을 허락할 도메인 목록
+"""
 ALLOWED_EMAIL_DOMAIN = [
-    "ajou.ac.kr",
+    'ajou.ac.kr'
 ]
 
-# 디스커스 계정에 설정 된 shortname을 적어주세요
-DISQUS_WEBSITE_SHORTNAME = 'your_short_name'
+"""
+메일 인증을 위해 사용할 메일서버 계정 정보
+"""
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'hello@gmail.com'
+EMAIL_HOST_PASSWORD = 'gmail_password'
+EMAIL_PORT = 587
+EMAIL_DISPLAYED_NAME = '아주대학교 1인1기1작 교육과정'
+
+"""
+DISQUS 댓글 기능 사용을 위한 계정정보
+"""
+DISQUS_WEBSITE_SHORTNAME = 'YOUR SHORT NAME HERE'
+
 ```
 - 아래의 명령어로 서버를 실행할 수 있습니다.
 ```bash
