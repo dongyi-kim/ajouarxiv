@@ -12,6 +12,9 @@
 
 {% block js %}
     {{ block.super }}
+{% endblock %}
+
+{% block external %}
     <script src="{% static 'externallib/ckeditor/ckeditor.js' %}"></script>
 {% endblock %}
 
