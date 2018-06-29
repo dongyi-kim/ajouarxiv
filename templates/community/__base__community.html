@@ -40,8 +40,8 @@
                             href="{% url 'community_council' %}">학생회</a></li>
                     <li {% if request.resolver_match.url_name == "community_club" %}class="active"{% endif %}><a
                             href="{% url 'community_club' %}">소학회</a></li>
-                    <li {% if request.resolver_match.url_name == "community_gallery" %}class="active"{% endif %}><a
-                            href="{% url 'community_gallery' %}">갤러리</a></li>
+{#                    <li {% if request.resolver_match.url_name == "community_gallery" %}class="active"{% endif %}><a#}
+{#                            href="{% url 'community_gallery' %}">갤러리</a></li>#}
                 </ul>
             </div>
             <div class="rightcol">
