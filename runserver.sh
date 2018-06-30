@@ -1,1 +1,2 @@
-uwsgi --ini ajouarxiv_uwsgi.ini
+uwsgi --ini ajouarxiv_uwsgi.ini &
+echo $! > server.pid

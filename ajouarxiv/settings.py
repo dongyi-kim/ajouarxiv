@@ -26,7 +26,11 @@ SECRET_KEY = local_settings.SECRET_KEY
 
 # if not DEBUG:
 # SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-if not DEBUG:
+
+if DEBUG:
+	HTML_MINIFY = False
+	COMPRESS_ENABLED = False
+else:
     SECURE_SSL_REDIRECT = True
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
