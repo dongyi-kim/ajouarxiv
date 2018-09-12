@@ -1,0 +1,141 @@
+{% extends 'profile/__base_profile.html' %}
+{% load staticfiles %}
+{% load compress %}
+
+{% block title %} 기본정보 수정 {% endblock %}
+{% block tab_name %} 기본정보 수정 {% endblock %}
+<!----- content ----->
+{% block tab_content %}
+    <p class="subTit_right">기본정보</p>
+    <div class="clearfix">
+        <ul class="searchBox clearfix">
+            <li>
+                <select class="box" id="search_type" name="search_type">
+                    <option value="post_title" selected="">제목</option>
+                    <option value="post_content">내용</option>
+                    <option value="user">작성자</option>
+                </select>
+            </li>
+            <li>
+                <input id="search_pattern" name="search_pattern" type="text" maxlength="30" value=""
+                       placeholder="검색어를 입력하세요" class="text">
+            </li>
+            <li>
+                <p class="search"><a href="#" onclick="go_search();">검 색</a></p>
+            </li>
+        </ul>
+    </div>
+    {% include '__components/filter_info.html' %}
+    <table class="classInfo" width="895">
+        <colgroup>
+            <col width="70">
+            <col width="570">
+            <col width="140">
+            <col width="115">
+        </colgroup>
+        <thead class="classHead">
+        <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>작성일</th>
+        </tr>
+        </thead>
+        <tbody class="classBody">
+        {% for post in notice_list %}
+            <tr>
+                <td>#{{ post.post_id }}</td>
+                <td class="nocen">
+                    <a href="{% url 'community_notice_view' post.post_id %}"
+                            {% if not post.is_visible %}
+                       class="removed"
+                            {% endif %}>
+                        <span>
+                            {{ post.post_title|truncatechars:45 }}
+                        </span>
+                    </a>
+                </td>
+                <td>{{ post.user.profile.name_kor }}</td>
+                <td>{{ post.created_date|date:'Y.m.d' }}</td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="4">표시 할 공지사항이 없습니다!</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <nav>
+        <div class="marginAuto">
+            <ul class="pagination">
+
+                {% if page_obj.has_previous %}
+                    <li>
+                        <a href="?page={{ page_obj.previous_page_number }}&{{ query_params }}"
+                           aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="disabled">
+                        <a href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+
+                {% for i in paginator.page_range %}
+                    {% if page_obj.number == i %}
+                        <li class="active"><a href="#">{{ i }}</a></li>
+                    {% else %}
+                        <li><a href="?page={{ i }}&{{ query_params }}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+
+
+
+
+                {% if page_obj.has_next %}
+                    <li>
+                        <a href="?page={{ page_obj.next_page_number }}&{{ query_params }}"
+                           aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="disabled">
+                        <a href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+    {% compress js %}
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#search_pattern').keydown(function (e) {
+                    if (e.keyCode === 13) {
+                        go_search();
+                    }
+                })
+            });
+
+            function go_search() {
+                type = $('#search_type').val().trim();
+                pattern = $('#search_pattern').val().trim();
+
+                if (pattern.length === 0) {
+                    window.location.href = "{% url 'community_notice' %}";
+                }
+                else if (pattern.length <= 1) {
+                    alert('두 글자 이상의 검색어를 입력하세요.');
+                } else {
+                    window.location.href = "{% url 'community_notice' %}" + '?' + type + '=' + pattern;
+                }
+            }
+        </script>
+    {% endcompress %}
+    <!----- //conatainer ----->
+{% endblock %}

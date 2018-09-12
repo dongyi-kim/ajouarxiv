@@ -5,7 +5,7 @@
         <nav class="wrapper">
             <ul class="lnbList clearfix">
                 {% if user.is_active %}
-                    <li><a href="#">{{ user.get_username }} ({{ user.profile.student_id }})</a></li>
+                    <li><a href="{% url 'profile_basic_info' %}">{{ user.get_username }} ({{ user.profile.student_id }})</a></li>
                     <li><a href="{% url 'logout' %}" onclick="return confirm('로그아웃 하시겠습니까?');">Logout</a></li>
                 {% else %}
                     <li><a href="{% url 'login' %}">LOGIN</a></li>
