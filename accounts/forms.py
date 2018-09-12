@@ -96,5 +96,19 @@ class LoginForm(forms.ModelForm):
         model = User
         fields = ['username', 'password']
 
-class PasswordChangeForm(forms.ModelForm):
-    pass
+
+class PasswordChangeForm(forms.Form):
+    password1 = forms.CharField(max_length=50, widget=forms.PasswordInput)
+    password2 = forms.CharField(max_length=50, widget=forms.PasswordInput)
+
+    def clean(self):
+        cleaned_data = super(PasswordChangeForm, self).clean()
+        password = cleaned_data.get('password1')
+        password_confirm = cleaned_data.get('password2')
+
+        if password != password_confirm:
+            raise forms.ValidationError("두 비밀번호가 일치하지 않습니다.")
+
+        if not re.compile('^[a-zA-Z0-9!@#$%^&*]{8,30}$').match(password):
+            raise forms.ValidationError("비밀번호는 8~30글자 사이어야 하며,<br/>대/소문자, 숫자, 특수기호(!@#$%%^&*)만 사용 가능합니다.")
+

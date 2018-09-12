@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render, redirect, get_object_or_404
-from accounts.forms import EmailVerificationCreationForm, RegisterForm, LoginForm, ProfileUpdateForm
-from accounts.models import Profile, EmailVerification
+from accounts.forms import *
+from accounts.models import *
+from django.db.models import Q
 # Create your views here.
 from django.contrib.auth.models import User
 from django.utils import timezone
@@ -137,7 +138,10 @@ class EmailVerificationView(View):
 
 class EmailVerificationDoneView(View):
     def get(self, request):
-        return render(request, 'done.html', {})
+        return render(request, 'done.html', {
+            'title': '가입 신청 완료',
+            'message': '요청한 이메일로 회원가입 링크를 전송했습니다.\n24시간내에 가입을 완료해주세요'
+        })
 
     def post(self, request):
         return HttpResponse(status=404)
@@ -191,9 +195,75 @@ class ProfileBasicInformationView(View):
             return HttpResponse(content=form.errors.as_json(), content_type="application/json", status=400)
 
 
-class PasswordChangeRequestApiView(View):
+class PasswordChangeRequestView(View):
     def get(self, request):
-        pass
+        return render(request, 'accounts/password_change_request.html')
 
     def post(self, request):
-        pass
+        email = request.POST['email']
+
+        user = get_object_or_404(User, email=email)
+
+        for req in PasswordChangeRequest.objects.filter(user=user):
+            req.expire()
+
+        passwd_req = PasswordChangeRequest(user=user)
+        passwd_req.request()
+        passwd_req.save()
+
+        # 유저에게 메일을 통한 가입 진행 요청
+        send_mail(subject='1인1기1작 비밀번호 변경 메일입니다',
+                  message='아래의 URL을 통해 24시간 이내에 비밀번호 변경을 완료해주세요' + '\n' + passwd_req.get_url(),
+                  from_email=settings.EMAIL_DISPLAYED_NAME,
+                  recipient_list=[passwd_req.user.email],
+                  fail_silently=True)
+
+        return HttpResponse(status=200)
+
+
+class PasswordChangeRequestDoneView(View):
+    def get(self, request):
+        return render(request, 'done.html', {
+            'title': '변경 요청이 완료되었습니다',
+            'message': '해당 이메일로 전송된 URL를 통해\n비밀번호 변경을 완료해주세요!'
+        })
+
+    def post(self, request):
+        return HttpResponse(status=404)
+
+
+class PasswordChangeView(View):
+    def get(self, request):
+        request_id, hashcode = request.GET.get('request_id'), request.GET.get('hashcode')
+        passwd_req = get_object_or_404(PasswordChangeRequest,
+                                       request_id=request_id,
+                                       hashcode=hashcode,
+                                       expired_date__gte=timezone.now())
+
+        return render(request, 'accounts/password_change.html', {
+            'user': passwd_req.user,
+            'hashcode': hashcode,
+            'request_id': request_id
+        })
+
+    def post(self, request):
+        request_id, hashcode = request.POST.get('request_id'), request.POST.get('hashcode')
+
+        passwd_req = get_object_or_404(PasswordChangeRequest,
+                                       request_id=request_id,
+                                       hashcode=hashcode,
+                                       expired_date__gte=timezone.now())
+
+        print(request.POST)
+
+        form = PasswordChangeForm(request.POST)
+
+        if form.is_valid():
+            raw_password = form.cleaned_data['password1']
+            passwd_req.user.set_password(raw_password=raw_password)
+            passwd_req.user.save()
+            passwd_req.expire()
+            passwd_req.save()
+            return HttpResponse(status=200)
+        else:
+            return HttpResponse(content=form.errors.as_json(), content_type="application/json", status=400)

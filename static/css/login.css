@@ -118,6 +118,14 @@ p.noticeRed {
     float: right;
 }
 
+#join .boxtable .subBtn_group .forgotPw {
+    float: right;
+}
+#join .boxtable .subBtn_group {
+    width: 390px;
+    margin: 0 auto;
+}
+
 #login .boxtable .grayBg {
     height: 78px;
     background-color: #dbdbdb;
@@ -143,6 +151,8 @@ p.noticeRed {
     background-color: #fff;
     border: 1px solid #ccc;
     padding-top: 53px;
+    padding-bottom: 53px;
+
 }
 
 #join .boxtable .loginText {
@@ -174,7 +184,6 @@ p.noticeRed {
     font-size: 18px;
     line-height: 56px;
     font-weight: normal;
-    margin-bottom: 60px;
     margin-top: 30px;
 }
 

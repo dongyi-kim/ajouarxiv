@@ -65,6 +65,7 @@ class EmailVerification(models.Model):
         url = parse.urljoin(url, query)
         return url
 
+
 class PasswordChangeRequest(models.Model):
     user = models.ForeignKey(User)
     request_id = models.AutoField(primary_key=True)
@@ -90,6 +91,6 @@ class PasswordChangeRequest(models.Model):
     def get_url(self):
         host = '%s://%s' % (settings.BASE_PROTOCOL, settings.BASE_HOST)
         query = '?request_id=%d&hashcode=%s' % (self.request_id, self.hashcode)
-        url = parse.urljoin(host, reverse('register'))
+        url = parse.urljoin(host, reverse('profile_password_change'))
         url = parse.urljoin(url, query)
         return url
