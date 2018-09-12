@@ -170,3 +170,30 @@ class EmailVerificationApiView(View):
             return HttpResponse(status=200)
         else:
             return HttpResponse(content=form.errors.as_json(), content_type="application/json", status=400)
+
+
+class ProfileBasicInformationView(View):
+
+    @method_decorator(login_required)
+    def get(self, request):
+        return render(request, 'accounts/profile_update.html', {
+            'user': request.user
+        })
+
+    @method_decorator(login_required)
+    def post(self, request):
+        form = ProfileUpdateForm(request.POST, instance=request.user.profile)
+
+        if form.is_valid():
+            form.save()
+            return HttpResponse(status=200)
+        else:
+            return HttpResponse(content=form.errors.as_json(), content_type="application/json", status=400)
+
+
+class PasswordChangeRequestApiView(View):
+    def get(self, request):
+        pass
+
+    def post(self, request):
+        pass

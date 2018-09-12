@@ -64,3 +64,32 @@ class EmailVerification(models.Model):
         url = parse.urljoin(host, reverse('register'))
         url = parse.urljoin(url, query)
         return url
+
+class PasswordChangeRequest(models.Model):
+    user = models.ForeignKey(User)
+    request_id = models.AutoField(primary_key=True)
+    hashcode = models.CharField(max_length=256, null=True)
+    created_date = models.DateTimeField(default=timezone.now)
+    expired_date = models.DateTimeField(default=timezone.now)
+
+    def request(self):
+        self.created_date = timezone.now()
+        self.expired_date = timezone.now() + timezone.timedelta(hours=24)
+
+        h = hashlib.sha256()
+        h.update(str(self.request_id).encode('utf-8'))
+        h.update(self.user.email.encode('utf-8'))
+
+        self.hashcode = h.hexdigest()
+        self.save()
+
+    def expire(self):
+        self.expired_date = timezone.now()
+        self.save()
+
+    def get_url(self):
+        host = '%s://%s' % (settings.BASE_PROTOCOL, settings.BASE_HOST)
+        query = '?request_id=%d&hashcode=%s' % (self.request_id, self.hashcode)
+        url = parse.urljoin(host, reverse('register'))
+        url = parse.urljoin(url, query)
+        return url

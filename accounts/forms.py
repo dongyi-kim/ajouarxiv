@@ -79,8 +79,22 @@ class ProfileUpdateForm(forms.ModelForm):
         model = Profile
         fields = ['name_kor', 'student_id']
 
+    def clean(self):
+        cleaned_data = super(ProfileUpdateForm, self).clean()
+        student_id = cleaned_data.get('student_id')
+        name_kor = cleaned_data.get('name_kor')
+
+        if not name_kor or not re.compile('^[가-힣]{2,20}$').match(name_kor):
+            raise forms.ValidationError("한글 이름은 10글자 이하의 한글이어야 합니다.")
+
+        if not student_id or not re.compile("^[0-9]{9,9}$").match(student_id):
+            raise forms.ValidationError("올바른 9자리 학번(사번)을 입력해주세요.")
+
 
 class LoginForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username', 'password']
+
+class PasswordChangeForm(forms.ModelForm):
+    pass

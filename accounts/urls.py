@@ -2,7 +2,6 @@ from django.conf.urls import url, include
 from django.contrib import admin
 
 from accounts import views
-from accounts import views_profile
 
 urlpatterns = [
     url(r'^logout/$', views.LogoutView.as_view(), name='logout'),
@@ -14,7 +13,7 @@ urlpatterns = [
     url(r'^api/register/$', views.RegisterApiView.as_view(), name='api_register'),
     url(r'^api/login/$', views.LoginApiView.as_view(), name='api_login'),
 
-    url(r'^profile/basic/$', views_profile.ProfileBasicInformationView.as_view(), name='profile_basic_info'),
+    url(r'^profile/basic/$', views.ProfileBasicInformationView.as_view(), name='profile_basic_info'),
 
 
 ]
