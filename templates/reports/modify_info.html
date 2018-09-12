@@ -149,22 +149,22 @@
                     <label for="inputPassword3" class="col-sm-2 control-label">보고서 공개 여부</label>
                     <div class="col-sm-10">
                         <div class="btn-group" data-toggle="buttons">
-                            {% if not report_file_exists %}
-                                <label class="btn btn-primary">
-                                    <input type="radio" autocomplete="off" disabled readonly="readonly"> 전체공개로 게시
-                                </label>
-                            {% else %}
-                                <label class="btn btn-primary {% if report.is_public %} active {% endif %}">
-                                    <input type="radio" name="is_public" id="accessibility" autocomplete="off"
+{#                            {% if not report_file_exists %}#}
+{#                                <label class="btn btn-primary">#}
+{#                                    <input type="radio" autocomplete="off" disabled readonly="readonly"> 전체공개로 게시#}
+{#                                </label>#}
+{#                            {% else %}#}
+                                <label class="btn btn-primary {% if report.is_public %} active {% endif %}" {% if report_file_exists == False %} disabled {% endif %}>
+                                    <input type="radio" name="is_public" id="accessibility" autocomplete="off" {% if report_file_exists == False %} disabled{% endif %}
                                             {% if report.is_public %} checked {% endif %} > 전체공개로 게시
                                 </label>
-                            {% endif %}
+{#                            {% endif %}#}
 
-                            <label class="btn btn-primary  {% if report.is_accessible or not report_file_exists %} active {% endif %}">
+                            <label class="btn btn-primary  {% if report.is_accessible %} active {% endif %}">
                                 <input type="radio" name="is_accessible" id="accessibility" autocomplete="off"
                                         {% if report.is_accessible %} checked {% endif %} > URL로 접근 가능
                             </label>
-                            <label class="btn btn-primary {% if not report.is_public and not report.is_accessible %} active {% endif %} ">
+                            <label class="btn btn-primary {% if report.is_public == False and report.is_accessible == False %} active {% endif %} ">
                                 <input type="radio" name="is_secret" id="accessibility" autocomplete="off"
                                         {% if report.is_public == False and report.is_accessible == False %} checked {% endif %} >
                                 비공개
