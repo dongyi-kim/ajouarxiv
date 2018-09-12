@@ -166,7 +166,7 @@
                             </label>
                             <label class="btn btn-primary {% if not report.is_public and not report.is_accessible %} active {% endif %} ">
                                 <input type="radio" name="is_secret" id="accessibility" autocomplete="off"
-                                        {% if not report.is_public and not report.is_accessible %} checked {% endif %} >
+                                        {% if report.is_public == False and report.is_accessible == False %} checked {% endif %} >
                                 비공개
                             </label>
                         </div>

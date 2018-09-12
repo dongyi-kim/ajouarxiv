@@ -229,8 +229,9 @@ class ReportCreateView(View):
             authors=profile.name_kor,
             title='New Report ' + time.strftime("%Y.%m.%d %H.%M.%S"),
         )
+        report.save()
 
-        return redirect('reports_writings')
+        return redirect('reports_modify_info', report_id=report.report_id)
 
     def post(self, request):
         raise Http404
