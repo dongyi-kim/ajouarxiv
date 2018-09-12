@@ -204,8 +204,9 @@ class PasswordChangeRequestView(View):
 
         user = get_object_or_404(User, email=email)
 
-        for req in PasswordChangeRequest.objects.filter(user=user):
-            req.expire()
+        if PasswordChangeRequest.objects.filter(user=user).exists():
+            for req in PasswordChangeRequest.objects.filter(user=user):
+                req.expire()
 
         passwd_req = PasswordChangeRequest(user=user)
         passwd_req.request()
