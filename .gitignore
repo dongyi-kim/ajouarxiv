@@ -13,6 +13,7 @@ pid.txt
 ajouarxiv_nginx.conf
 ajouarxiv_uwsgi.ini
 uwsgi_params
+static/security
 
 .idea/
 __pycache__/
