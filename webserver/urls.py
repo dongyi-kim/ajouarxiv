@@ -7,4 +7,5 @@ urlpatterns = [
     url(r'^error/$', views.fail, name='fail'),
     url(r'^upload_ckimage/$', views.CKEditorImageUploadApiView.as_view(), name='api_image_upload_ckeditor'),
     url(r'^upload_ckfile/$', views.CKEditorFileUploadApiView.as_view(), name='api_file_upload_ckeditor')
+	# url(r'^.well-known/pki-validation/$', view.pki_validation, name='pki_validation')
 ]

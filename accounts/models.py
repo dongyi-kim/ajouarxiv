@@ -36,12 +36,14 @@ post_save.connect(create_user_profile, sender=User)
 User.profile = property(lambda u: Profile.objects.get_or_create(user=u)[0])
 
 
+
 class EmailVerification(models.Model):
     verification_id = models.AutoField(primary_key=True)
     email = models.EmailField(null=False, blank=False)
     hashcode = models.CharField(max_length=256, null=True)
     created_date = models.DateTimeField(default=timezone.now)
     expired_date = models.DateTimeField(default=timezone.now)
+    trash = models.CharField(max_length=256, null=True)
 
     def request(self):
         self.created_date = timezone.now()
