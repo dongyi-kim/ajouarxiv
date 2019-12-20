@@ -14,6 +14,7 @@ ajouarxiv_nginx.conf
 ajouarxiv_uwsgi.ini
 uwsgi_params
 static/security
+template/security
 
 .idea/
 __pycache__/
